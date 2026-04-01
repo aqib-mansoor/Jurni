@@ -25,7 +25,7 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-24 sm:pt-20">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-32 sm:pt-40 lg:pt-48">
         <div className="max-w-screen-2xl mx-auto w-full flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
