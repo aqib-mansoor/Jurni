@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, Bell, User as UserIcon, LogOut, Settings, Briefcase, Heart, HelpCircle, MapPin, Star, X } from 'lucide-react';
 import { Menu, Transition } from '@headlessui/react';
+import { toast } from 'react-hot-toast';
 import { Button } from '../ui/Button';
 import { useJurniAuth } from '../../hooks/useJurniAuth';
 import { cn, formatPrice } from '../../lib/utils';
@@ -62,15 +63,21 @@ export const PlatformNavbar = ({ onSearchClick, isSearchModalOpen, setIsSearchMo
   };
 
   const handleSignOut = async () => {
-    await logout();
-    setIsSignOutModalOpen(false);
-    navigate('/');
+    try {
+      await logout();
+      setIsSignOutModalOpen(false);
+      toast.success('Signed out successfully');
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Sign out error:', error);
+      toast.error('Failed to sign out');
+    }
   };
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-midnight text-pearl px-6 py-4 shadow-2xl border-b border-pearl/5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-midnight text-pearl px-6 py-4 shadow-2xl border-b border-pearl/5">
+        <div className="max-w-screen-2xl mx-auto flex items-center justify-between gap-8">
           <Link to="/platform/explore" className="text-2xl font-serif font-bold text-champagne tracking-[0.3em] shrink-0 hover:opacity-80 transition-opacity">
             JURNİ
           </Link>

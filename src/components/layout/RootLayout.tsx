@@ -9,7 +9,7 @@ import { useJurniAuth } from '../../hooks/useJurniAuth';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { LoginModal } from '../auth/LoginModal';
 import { SupportModal } from '../ui/SupportModal';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 export const RootLayout = () => {
   const { user, loading } = useJurniAuth();
@@ -22,9 +22,20 @@ export const RootLayout = () => {
 
   useEffect(() => {
     if (!loading && user && location.pathname === '/') {
-      navigate('/platform/dashboard');
+      navigate('/platform/explore', { replace: true });
     }
   }, [user, loading, location.pathname, navigate]);
+
+  if (loading || (user && location.pathname === '/')) {
+    return (
+      <div className="min-h-screen bg-midnight flex items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+          <div className="h-16 w-16 border-4 border-champagne border-t-transparent rounded-full animate-spin" />
+          <p className="text-champagne font-serif text-xl tracking-[0.3em] animate-pulse uppercase">Jurni</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">

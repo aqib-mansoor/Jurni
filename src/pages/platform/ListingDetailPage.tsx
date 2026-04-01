@@ -140,7 +140,7 @@ export const ListingDetailPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 mt-8 lg:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 mt-8 lg:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-8 lg:space-y-12">
           <section data-aos="fade-up">

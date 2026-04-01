@@ -50,7 +50,7 @@ export const WishlistPage = () => {
 
   return (
     <div className="bg-pearl min-h-screen py-8 lg:py-12 px-4 sm:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-screen-2xl mx-auto">
         <div className="mb-8 lg:mb-12" data-aos="fade-down">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-midnight mb-2 lg:mb-4">Your Wishlist</h1>
           <p className="text-sm sm:text-base lg:text-lg text-midnight opacity-60">Curated experiences waiting for your arrival.</p>

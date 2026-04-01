@@ -115,7 +115,7 @@ export const MyBookingsPage = () => {
   if (loading) return <LoadingSpinner fullScreen />;
 
   return (
-    <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-8 lg:space-y-12">
+    <div className="p-4 sm:p-8 lg:p-12 max-w-screen-2xl mx-auto space-y-8 lg:space-y-12">
       <div data-aos="fade-down">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-midnight mb-2">My Bookings</h1>
         <p className="text-sm sm:text-base text-midnight opacity-60 font-light italic">Manage your upcoming and past luxury experiences.</p>

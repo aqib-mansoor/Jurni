@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Play, ArrowRight, Star } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { SearchBar } from './SearchBar';
@@ -70,15 +70,22 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-16 sm:mb-24"
+            className="flex flex-col items-center w-full"
           >
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto px-10 py-5 sm:px-12 sm:py-8 bg-champagne text-midnight hover:bg-pearl hover:text-midnight transition-all duration-500 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs rounded-none shadow-[0_20px_50px_rgba(247,215,148,0.3)] group"
-              onClick={onAuthClick}
-            >
-              Start Your Journey <ArrowRight size={14} className="inline-block ml-2 group-hover:translate-x-2 transition-transform sm:w-[16px] sm:h-[16px]" />
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-16 sm:mb-24 w-full justify-center">
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto px-10 py-5 sm:px-12 sm:py-8 bg-champagne text-midnight hover:bg-pearl hover:text-midnight transition-all duration-500 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs rounded-none shadow-[0_20px_50px_rgba(247,215,148,0.3)] group"
+                onClick={onAuthClick}
+              >
+                Start Your Journey <ArrowRight size={14} className="inline-block ml-2 group-hover:translate-x-2 transition-transform sm:w-[16px] sm:h-[16px]" />
+              </Button>
+            </div>
+
+            {/* Integrated Search Bar */}
+            <div className="w-full max-w-5xl mx-auto mb-16 sm:mb-24">
+              <SearchBar />
+            </div>
           </motion.div>
 
           {/* Stats Row */}
@@ -102,11 +109,6 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
             </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* Floating Search Bar */}
-      <div className="absolute bottom-20 left-0 right-0 z-30">
-        <SearchBar />
       </div>
 
       {/* Scroll Indicator */}

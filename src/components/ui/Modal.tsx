@@ -14,7 +14,7 @@ interface ModalProps {
 
 export const Modal = ({ isOpen, onClose, title, children, className, maxWidth = 'max-w-md' }: ModalProps) => (
   <Transition show={isOpen} as={React.Fragment}>
-    <Dialog as="div" className="relative z-50" onClose={onClose}>
+    <Dialog as="div" className="relative z-[100]" onClose={onClose}>
       <Transition.Child
         as={React.Fragment}
         enter="ease-out duration-300"

@@ -184,7 +184,7 @@ export const ExplorePage = () => {
       </section>
 
       {/* Sophisticated Category Navigation */}
-      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-16 max-w-7xl mx-auto">
+      <section className="py-16 md:py-24 px-4 md:px-6 lg:px-12 max-w-screen-2xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-12 md:mb-16">
           <div className="space-y-2 md:space-y-4">
             <span className="text-champagne font-mono text-[9px] md:text-[10px] tracking-[0.4em] uppercase block">Curated Collections</span>
@@ -316,8 +316,8 @@ export const ExplorePage = () => {
       </section>
 
       {/* Trending Destinations - Luxury Grid */}
-      <section className="bg-midnight py-20 md:py-32 px-4 md:px-6 lg:px-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+      <section className="bg-midnight py-20 md:py-32 px-4 md:px-6 lg:px-12 overflow-hidden">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="lg:col-span-4 space-y-6 md:space-y-8">
               <div className="space-y-3 md:space-y-4">
@@ -368,7 +368,7 @@ export const ExplorePage = () => {
       </section>
 
       {/* Exclusive Privileges - Editorial Style */}
-      <section className="py-20 md:py-32 px-4 md:px-6 lg:px-16 max-w-7xl mx-auto">
+      <section className="py-20 md:py-32 px-4 md:px-6 lg:px-12 max-w-screen-2xl mx-auto">
         <div className="text-center mb-16 md:mb-24 space-y-3 md:space-y-4">
           <span className="text-champagne font-mono text-[9px] md:text-[10px] tracking-[0.4em] uppercase block">Member Benefits</span>
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif text-midnight">Exclusive Privileges</h2>
@@ -411,8 +411,8 @@ export const ExplorePage = () => {
 
       {/* Recently Viewed - Elegant Rail */}
       {recentViews.length > 0 && (
-        <section className="py-20 md:py-32 px-4 md:px-6 lg:px-16 border-t border-midnight/5">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-20 md:py-32 px-4 md:px-6 lg:px-12 border-t border-midnight/5">
+          <div className="max-w-screen-2xl mx-auto">
             <div className="flex items-center justify-between mb-12 md:mb-16">
               <div className="flex items-center gap-4 md:gap-6">
                 <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-pearl flex items-center justify-center text-midnight border border-midnight/5">

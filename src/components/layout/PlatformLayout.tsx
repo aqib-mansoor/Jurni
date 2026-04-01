@@ -29,7 +29,7 @@ export const PlatformLayout = () => {
       <NetworkStatus />
       <PlatformNavbar onSearchClick={openSearch} isSearchModalOpen={isSearchModalOpen} setIsSearchModalOpen={setSearchModalOpen} />
       
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 w-full pt-20">
         <Outlet />
       </main>
 

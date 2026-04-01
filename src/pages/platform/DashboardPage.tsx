@@ -87,7 +87,7 @@ export const DashboardPage = () => {
   }, [user]);
 
   return (
-    <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-8 sm:space-y-12">
+    <div className="p-4 sm:p-8 lg:p-12 max-w-screen-2xl mx-auto space-y-8 sm:space-y-12">
       {/* Welcome Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 sm:gap-6" data-aos="fade-down">
         <div>
