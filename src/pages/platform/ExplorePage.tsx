@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useSearch } from '../../context/SearchContext';
 
 export const ExplorePage = () => {
-  const { user } = useJurniAuth();
+  const { user, toggleWishlist } = useJurniAuth();
   const { openSearch } = useSearch();
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState<Listing[]>([]);
@@ -260,6 +260,23 @@ export const ExplorePage = () => {
                         <Star size={10} className="text-champagne fill-current mb-0.5" />
                         <span className="text-[8px] md:text-[10px] font-bold">{listing.rating}</span>
                       </div>
+
+                      {/* Wishlist Button */}
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleWishlist(listing.id);
+                        }}
+                        className={cn(
+                          "absolute bottom-2 md:bottom-6 right-2 md:right-6 h-8 w-8 md:h-12 md:w-12 rounded-full backdrop-blur-md border border-white/10 flex items-center justify-center transition-all duration-500",
+                          user?.wishlist?.includes(listing.id) 
+                            ? "bg-rose text-white border-rose" 
+                            : "bg-midnight/30 text-white hover:bg-rose hover:border-rose"
+                        )}
+                      >
+                        <Heart size={14} className={cn("md:size-5 transition-all", user?.wishlist?.includes(listing.id) ? "fill-current" : "")} />
+                      </button>
 
                       <div className="absolute bottom-3 md:bottom-8 left-3 md:left-8 right-3 md:right-8">
                         <div className="flex items-center gap-1 text-champagne text-[7px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] mb-1 md:mb-2">

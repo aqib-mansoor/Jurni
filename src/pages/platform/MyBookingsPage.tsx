@@ -166,11 +166,8 @@ export const MyBookingsPage = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-40" />
                       {category === 'Upcoming' && (
-                        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-midnight/10 backdrop-blur-md px-2 py-1.5 sm:px-4 sm:py-3 border border-pearl/10 shadow-2xl rounded-lg sm:rounded-xl">
-                          <Countdown 
-                            targetDate={booking.dates.start} 
-                            label={(booking.listing?.type === 'hotel' || booking.listing?.type === 'villa') ? 'Check-in In' : 'Departure In'}
-                          />
+                        <div className="absolute top-4 left-4 bg-midnight/90 backdrop-blur-xl px-4 py-2 rounded-none border border-pearl/10 shadow-2xl">
+                          <Countdown targetDate={booking.dates.start} />
                         </div>
                       )}
                     </div>

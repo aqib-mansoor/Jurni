@@ -8,6 +8,8 @@ import { ListingDetailPage } from './pages/platform/ListingDetailPage';
 import { MyBookingsPage } from './pages/platform/MyBookingsPage';
 import { ProfilePage } from './pages/platform/ProfilePage';
 import { WishlistPage } from './pages/platform/WishlistPage';
+import { SettingsPage } from './pages/platform/SettingsPage';
+import { HelpPage } from './pages/platform/HelpPage';
 import { ItineraryPage } from './pages/platform/ItineraryPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { PlatformLayout } from './components/layout/PlatformLayout';
@@ -38,6 +40,8 @@ export default function App() {
             <Route path="bookings" element={<MyBookingsPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="wishlist" element={<WishlistPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="help" element={<HelpPage />} />
             <Route path="itinerary/:id" element={<ItineraryPage />} />
           </Route>
           

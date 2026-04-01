@@ -25,7 +25,12 @@ export const useJurniAuth = () => {
         try {
           const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
           if (userDoc.exists()) {
-            setUser({ id: firebaseUser.uid, ...userDoc.data() } as User);
+            const userData = userDoc.data();
+            setUser({ 
+              id: firebaseUser.uid, 
+              ...userData,
+              wishlist: userData.wishlist || []
+            } as User);
           } else {
             const newUser: User = {
               id: firebaseUser.uid,
@@ -102,7 +107,7 @@ export const useJurniAuth = () => {
     try {
       await setDoc(doc(db, 'users', user.id), { ...user, wishlist: newWishlist });
       setUser({ ...user, wishlist: newWishlist });
-      toast.success(user.wishlist.includes(listingId) ? 'Removed from wishlist' : 'Added to wishlist');
+      toast.success(newWishlist.includes(listingId) ? 'Added to wishlist' : 'Removed from wishlist');
     } catch (err) {
       console.error(err);
       if (err instanceof Error && err.message.includes('permission')) {
