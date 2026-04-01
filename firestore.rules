@@ -1,0 +1,157 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: userId
+    // Fields: uid, email, displayName, photoURL, phoneNumber, birthDate, nationality, memberSince, role, preferences, loyaltyPoints
+    //
+    // Collection: listings
+    // Document ID: listingId
+    // Fields: id, title, description, location, price, rating, reviewCount, images, type, amenities, host, availability, featured, trending
+    //
+    // Collection: bookings
+    // Document ID: bookingId
+    // Fields: id, userId, listingId, listingSummary, dates, guests, totalPrice, status, createdAt, passengerManifest, specialRequests, paymentMethodId
+    //
+    // Collection: reviews
+    // Document ID: reviewId
+    // Fields: id, userId, userName, userAvatar, listingId, rating, comment, createdAt
+    //
+    // Collection: notifications
+    // Document ID: notificationId
+    // Fields: id, userId, title, message, type, read, createdAt, link
+    //
+    // Collection: chat_sessions
+    // Document ID: sessionId
+    // Fields: id, userId, status, lastMessageAt, unreadCount
+    //
+    // Collection: chat_sessions/{sessionId}/messages
+    // Document ID: messageId
+    // Fields: id, chatId, senderId, text, attachments, createdAt
+    //
+    // Collection: wishlists
+    // Document ID: wishlistId
+    // Fields: userId, listingId, createdAt
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        ((exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
+          (request.auth.token.email == "itzaqib248@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidUrl(url) {
+      return url is string && (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'memberSince', 'role']) &&
+             data.uid == request.auth.uid &&
+             isValidEmail(data.email) &&
+             data.role in ['user', 'admin'] &&
+             (!('wishlist' in data) || data.wishlist is list);
+    }
+
+    function isValidBooking(data) {
+      return data.keys().hasAll(['id', 'userId', 'listingId', 'dates', 'guests', 'totalPrice', 'status', 'createdAt']) &&
+             data.userId == request.auth.uid &&
+             data.status in ['pending', 'confirmed', 'cancelled'] &&
+             data.totalPrice is number && data.totalPrice >= 0;
+    }
+
+    function isValidReview(data) {
+      return data.keys().hasAll(['id', 'userId', 'userName', 'listingId', 'rating', 'comment', 'createdAt']) &&
+             data.userId == request.auth.uid &&
+             data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+             data.comment is string && data.comment.size() > 0 && data.comment.size() < 1000;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // Users
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == 'user';
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == resource.data.role;
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // Listings
+    match /listings/{listingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && isValidBooking(request.resource.data) && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin()) && isValidBooking(request.resource.data) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isAdmin();
+    }
+
+    // Reviews
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && isValidReview(request.resource.data);
+      allow update: if isAuthenticated() && isOwner(resource.data.userId) && isValidReview(request.resource.data) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isAuthenticated() && (isOwner(resource.data.userId) || isAdmin());
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow write: if isAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid);
+    }
+
+    // Chat Sessions
+    match /chat_sessions/{sessionId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      
+      match /messages/{messageId} {
+        allow read: if isAuthenticated() && (get(/databases/$(database)/documents/chat_sessions/$(sessionId)).data.userId == request.auth.uid || isAdmin());
+        allow create: if isAuthenticated() && (request.resource.data.senderId == request.auth.uid || isAdmin());
+      }
+    }
+
+    // Wishlists
+    match /wishlists/{wishlistId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // Internal
+    match /_internal/{id} {
+      allow read: if true;
+    }
+  }
+}

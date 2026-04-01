@@ -1,0 +1,5 @@
+{
+  "name": "Jurni",
+  "description": "A luxury travel booking platform for curated journeys.",
+  "requestFramePermissions": ["geolocation"]
+}
