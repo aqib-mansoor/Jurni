@@ -11,7 +11,7 @@ export const SearchBar = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.8 }}
-      className="w-full max-w-5xl mx-auto px-4 -mt-8 sm:-mt-16 relative z-30"
+      className="w-full max-w-5xl mx-auto px-4 relative z-30"
     >
       <div className="bg-pearl p-2 lg:p-4 rounded-none lg:rounded-full shadow-[0_20px_50px_rgba(25,42,86,0.15)] border border-midnight/5 flex flex-col lg:flex-row items-center gap-2 lg:gap-0">
         <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-midnight/10">

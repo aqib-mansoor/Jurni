@@ -25,7 +25,7 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-32 sm:pt-40 lg:pt-48">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-40 sm:pt-48 lg:pt-64 pb-32">
         <div className="max-w-screen-2xl mx-auto w-full flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -43,7 +43,7 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl sm:text-7xl lg:text-[10rem] font-serif text-pearl leading-[1.1] sm:leading-[0.85] tracking-tighter mb-8 sm:mb-12"
+            className="text-4xl sm:text-7xl lg:text-[8rem] font-serif text-pearl leading-[1.1] sm:leading-[0.85] tracking-tighter mb-8 sm:mb-12"
           >
             Journeys That Become <br />
             <span className="text-champagne italic font-light relative">
@@ -105,7 +105,9 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
       </div>
 
       {/* Floating Search Bar */}
-      <SearchBar />
+      <div className="absolute bottom-20 left-0 right-0 z-30">
+        <SearchBar />
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div 
