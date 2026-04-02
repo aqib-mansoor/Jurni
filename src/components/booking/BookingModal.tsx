@@ -18,9 +18,11 @@ import { Card } from '../ui/Card';
 import { Modal } from '../ui/Modal';
 import { Listing } from '../../types';
 import { formatPrice, cn } from '../../lib/utils';
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { useBooking } from '../../hooks/useBooking';
 import { useNavigate } from 'react-router-dom';
+import { CustomDatePicker } from '../ui/DatePicker';
+import { GuestSelector } from '../ui/GuestSelector';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -39,15 +41,32 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   listing,
   startDate,
   endDate,
-  passengers
+  passengers: initialPassengers
 }) => {
   const [step, setStep] = useState<Step>('review');
-  const [bookingDates, setBookingDates] = useState({ start: startDate, end: endDate });
+  const [bookingDates, setBookingDates] = useState({ 
+    start: startDate || format(new Date(), 'yyyy-MM-dd'), 
+    end: endDate || format(addDays(new Date(), 1), 'yyyy-MM-dd') 
+  });
+  const [guestCounts, setGuestCounts] = useState({ 
+    adults: initialPassengers || 1, 
+    children: 0, 
+    infants: 0 
+  });
 
   useEffect(() => {
-    setBookingDates({ start: startDate, end: endDate });
-  }, [startDate, endDate]);
+    if (startDate) {
+      setBookingDates({ 
+        start: startDate, 
+        end: endDate || startDate 
+      });
+    }
+    if (initialPassengers) {
+      setGuestCounts(prev => ({ ...prev, adults: initialPassengers }));
+    }
+  }, [startDate, endDate, initialPassengers]);
 
+  const passengers = guestCounts.adults + guestCounts.children;
   const [guestDetails, setGuestDetails] = useState({
     name: '',
     email: '',
@@ -142,57 +161,65 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 bg-white rounded-2xl border border-midnight/5 flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-midnight/5 text-midnight/40 flex items-center justify-center">
-                  <Calendar size={18} />
-                </div>
-                <div>
-                  <label className="block text-[8px] font-bold uppercase tracking-widest text-midnight/30">Dates</label>
-                  <p className="text-midnight font-medium text-sm">
-                    {safeFormat(bookingDates.start, 'MMM dd')} - {safeFormat(bookingDates.end, 'MMM dd, yyyy')}
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-[8px] font-bold uppercase tracking-widest text-midnight/30 ml-1">Select Dates</label>
+                <CustomDatePicker
+                  startDate={new Date(bookingDates.start)}
+                  endDate={new Date(bookingDates.end)}
+                  selectsRange={listing.type === 'hotel' || listing.type === 'villa'}
+                  onChange={(dates: any) => {
+                    if (listing.type === 'hotel' || listing.type === 'villa') {
+                      const [start, end] = dates;
+                      if (start) setBookingDates(prev => ({ ...prev, start: format(start, 'yyyy-MM-dd') }));
+                      if (end) setBookingDates(prev => ({ ...prev, end: format(end, 'yyyy-MM-dd') }));
+                    } else {
+                      if (dates) {
+                        const dateStr = format(dates, 'yyyy-MM-dd');
+                        setBookingDates({ start: dateStr, end: dateStr });
+                      }
+                    }
+                  }}
+                />
               </div>
-              <div className="p-5 bg-white rounded-2xl border border-midnight/5 flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-midnight/5 text-midnight/40 flex items-center justify-center">
-                  <User size={18} />
-                </div>
-                <div>
-                  <label className="block text-[8px] font-bold uppercase tracking-widest text-midnight/30">Guests</label>
-                  <p className="text-midnight font-medium text-sm">{passengers} {passengers === 1 ? 'Guest' : 'Guests'}</p>
-                </div>
+              <div className="space-y-2">
+                <label className="block text-[8px] font-bold uppercase tracking-widest text-midnight/30 ml-1">Number of Guests</label>
+                <GuestSelector
+                  counts={guestCounts}
+                  onChange={setGuestCounts}
+                  maxGuests={listing.availability?.totalSeats || 10}
+                />
               </div>
             </div>
 
             <div className="space-y-4 pt-4 border-t border-midnight/5">
-              <div className="flex justify-between text-xs font-medium">
-                <span className="text-midnight/40">Base Price ({formatPrice(listing.price)} x {passengers} x {numberOfNights})</span>
+              <div className="flex justify-between text-[10px] font-medium">
+                <span className="text-midnight/40 uppercase tracking-widest">Base Price ({formatPrice(listing.price)} x {passengers} x {numberOfNights})</span>
                 <span className="text-midnight">{formatPrice(listing.price * passengers * numberOfNights)}</span>
               </div>
-              <div className="flex justify-between text-xs font-medium">
-                <span className="text-midnight/40">Service & Elite Support</span>
+              <div className="flex justify-between text-[10px] font-medium">
+                <span className="text-midnight/40 uppercase tracking-widest">Service & Elite Support</span>
                 <span className="text-midnight">{formatPrice(listing.price * 0.1)}</span>
               </div>
               <div className="flex justify-between items-center pt-2">
-                <span className="text-lg font-serif text-midnight tracking-tight">Total Investment</span>
-                <span className="text-xl font-bold text-midnight tracking-tight">{formatPrice(totalPrice + (listing.price * 0.1))}</span>
+                <span className="text-base font-serif text-midnight tracking-tight">Total Investment</span>
+                <span className="text-lg font-bold text-midnight tracking-tight">{formatPrice(totalPrice + (listing.price * 0.1))}</span>
               </div>
             </div>
 
-            <div className="bg-champagne/10 p-4 rounded-xl flex gap-3 border border-champagne/20">
-              <Info size={16} className="text-champagne shrink-0 mt-0.5" />
-              <p className="text-[10px] text-midnight/60 leading-relaxed italic">
+            <div className="bg-champagne/5 p-4 rounded-xl flex gap-3 border border-champagne/10">
+              <Info size={14} className="text-champagne shrink-0 mt-0.5" />
+              <p className="text-[9px] text-midnight/50 leading-relaxed italic">
                 Elite Protection: Free cancellation until 48 hours before the experience starts.
               </p>
             </div>
 
             <Button 
-              className="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-widest bg-midnight text-champagne hover:bg-midnight/90 transition-all" 
+              className="w-full py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-midnight text-pearl hover:bg-midnight/90 transition-all shadow-lg shadow-midnight/10" 
               onClick={handleNext}
             >
               Continue to Guest Details
-              <ChevronRight size={16} className="ml-2" />
+              <ChevronRight size={14} className="ml-2" />
             </Button>
           </motion.div>
         );
@@ -261,7 +288,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 Back
               </Button>
               <Button 
-                className="w-full sm:flex-[2] py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-midnight text-champagne hover:bg-midnight/90 transition-all" 
+                className="w-full sm:flex-[2] py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-midnight text-pearl hover:bg-midnight/90 transition-all shadow-lg shadow-midnight/10" 
                 onClick={handleNext}
                 disabled={!guestDetails.name || !guestDetails.email || !guestDetails.phone}
               >
@@ -358,7 +385,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 Back
               </Button>
               <Button 
-                className="w-full sm:flex-[2] py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-midnight text-champagne hover:bg-midnight/90 transition-all" 
+                className="w-full sm:flex-[2] py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-midnight text-pearl hover:bg-midnight/90 transition-all shadow-lg shadow-midnight/10" 
                 onClick={handleConfirmBooking}
                 disabled={!isAgreed || !paymentDetails.cardNumber || loading}
                 isLoading={loading}
@@ -445,8 +472,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     >
       <div className="w-full">
         {step !== 'confirmation' && (
-          <div className="relative mb-10 sm:mb-12">
-            <div className="flex items-center justify-between relative z-10">
+          <div className="relative mb-8 sm:mb-10">
+            <div className="flex items-center justify-between relative z-10 px-4">
               {[
                 { id: 'review', label: 'Review' },
                 { id: 'guests', label: 'Guests' },
@@ -457,18 +484,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 const isCompleted = i < stepIndex;
                 
                 return (
-                  <div key={s.id} className="flex flex-col items-center gap-3">
+                  <div key={s.id} className="flex flex-col items-center gap-2">
                     <div className={cn(
-                      "h-12 w-12 sm:h-14 sm:w-14 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 border-2",
-                      isActive ? "bg-charcoal text-white border-charcoal scale-110 shadow-xl shadow-charcoal/10" : 
-                      isCompleted ? "bg-amber text-charcoal border-amber" : 
-                      "bg-ivory text-charcoal/20 border-charcoal/5"
+                      "h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500 border",
+                      isActive ? "bg-midnight text-pearl border-midnight scale-110 shadow-lg shadow-midnight/10" : 
+                      isCompleted ? "bg-champagne text-midnight border-champagne" : 
+                      "bg-pearl text-midnight/20 border-midnight/5"
                     )}>
-                      {isCompleted ? <CheckCircle2 size={24} /> : i + 1}
+                      {isCompleted ? <CheckCircle2 size={20} /> : i + 1}
                     </div>
                     <span className={cn(
-                      "text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] transition-opacity duration-500",
-                      isActive ? "opacity-100 text-charcoal" : "opacity-30 text-charcoal"
+                      "text-[9px] font-bold uppercase tracking-[0.3em] transition-opacity duration-500",
+                      isActive ? "opacity-100 text-midnight" : "opacity-30 text-midnight"
                     )}>
                       {s.label}
                     </span>
@@ -477,9 +504,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               })}
             </div>
             {/* Progress Line */}
-            <div className="absolute top-6 sm:top-7 left-0 w-full h-[1px] bg-charcoal/5 -z-0">
+            <div className="absolute top-5 sm:top-6 left-0 w-full h-[1px] bg-midnight/5 -z-0">
               <motion.div 
-                className="h-full bg-amber"
+                className="h-full bg-champagne"
                 initial={{ width: '0%' }}
                 animate={{ 
                   width: step === 'review' ? '0%' : 
@@ -496,14 +523,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         </AnimatePresence>
 
         {step !== 'confirmation' && (
-          <div className="mt-12 pt-10 border-t border-charcoal/5 flex flex-col sm:flex-row items-center justify-center gap-6 text-[10px] text-charcoal/30 uppercase font-bold tracking-[0.3em]">
-            <div className="flex items-center gap-3">
-              <ShieldCheck size={16} className="text-amber" />
+          <div className="mt-10 pt-8 border-t border-midnight/5 flex flex-col sm:flex-row items-center justify-center gap-6 text-[9px] text-midnight/20 uppercase font-bold tracking-[0.3em]">
+            <div className="flex items-center gap-2.5">
+              <ShieldCheck size={14} className="text-champagne" />
               Secure 256-bit SSL Encryption
             </div>
-            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-charcoal/10" />
-            <div className="flex items-center gap-3">
-              <CreditCard size={16} className="text-amber" />
+            <div className="hidden sm:block w-1 h-1 rounded-full bg-midnight/10" />
+            <div className="flex items-center gap-2.5">
+              <CreditCard size={14} className="text-champagne" />
               Trusted Payment Gateway
             </div>
           </div>

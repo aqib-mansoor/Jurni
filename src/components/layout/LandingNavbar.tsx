@@ -40,15 +40,15 @@ export const LandingNavbar = ({ onAuthClick }: { onAuthClick: () => void }) => {
   return (
     <>
       <nav className={cn(
-        'fixed top-0 left-0 right-0 z-[100] transition-all duration-700 px-6 sm:px-12 py-6',
+        'fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 sm:px-10',
         isScrolled 
-          ? 'bg-midnight/95 backdrop-blur-xl py-4 shadow-2xl border-b border-pearl/5' 
-          : 'bg-transparent border-b border-transparent'
+          ? 'bg-midnight/95 backdrop-blur-xl py-3 shadow-card border-b border-pearl/5' 
+          : 'bg-transparent py-6 border-b border-transparent'
       )}>
         <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-4 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <span className={cn(
-              "text-3xl sm:text-4xl font-serif font-bold tracking-[0.4em] transition-all duration-700",
+              "text-2xl sm:text-3xl font-serif font-bold tracking-[0.3em] transition-all duration-500",
               isScrolled ? "text-champagne" : "text-pearl"
             )}>
               JURNİ
@@ -56,26 +56,26 @@ export const LandingNavbar = ({ onAuthClick }: { onAuthClick: () => void }) => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-16">
+          <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "transition-all text-[10px] uppercase font-bold tracking-[0.5em] relative group",
+                  "transition-all text-[9px] uppercase font-bold tracking-[0.4em] relative group py-2",
                   isScrolled ? "text-pearl/60 hover:text-champagne" : "text-pearl/80 hover:text-pearl"
                 )}
               >
                 {link.name}
                 <span className={cn(
-                  "absolute -bottom-3 left-0 w-0 h-[1px] transition-all duration-700 group-hover:w-full",
+                  "absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] transition-all duration-500 group-hover:w-1/2",
                   isScrolled ? "bg-champagne" : "bg-pearl"
                 )} />
               </a>
             ))}
             
             <div className={cn(
-              "h-8 w-[1px] mx-4 transition-all duration-700",
+              "h-6 w-[1px] mx-2 transition-all duration-500",
               isScrolled ? "bg-pearl/10" : "bg-pearl/20"
             )} />
             
@@ -84,7 +84,7 @@ export const LandingNavbar = ({ onAuthClick }: { onAuthClick: () => void }) => {
               size="sm" 
               variant={isScrolled ? "primary" : "outline"}
               className={cn(
-                "px-12 py-5 rounded-2xl text-[10px] uppercase font-bold tracking-[0.4em] transition-all duration-700 shadow-xl hover:scale-105 active:scale-95",
+                "px-8 py-3.5 rounded-xl text-[9px] uppercase font-bold tracking-[0.3em] transition-all duration-500 shadow-lg hover:scale-105 active:scale-95",
                 !isScrolled && "border-pearl/30 text-pearl hover:bg-pearl hover:text-midnight"
               )}
             >
@@ -95,14 +95,14 @@ export const LandingNavbar = ({ onAuthClick }: { onAuthClick: () => void }) => {
           {/* Mobile Toggle */}
           <button 
             className={cn(
-              "lg:hidden h-14 w-14 flex items-center justify-center rounded-2xl transition-all duration-500 shadow-xl",
+              "lg:hidden h-11 w-11 flex items-center justify-center rounded-xl transition-all duration-500 shadow-lg",
               isScrolled 
                 ? "text-champagne bg-pearl/5 border border-pearl/10" 
                 : "text-pearl bg-white/10 border border-white/20 backdrop-blur-md"
             )}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>

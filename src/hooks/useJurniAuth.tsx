@@ -10,7 +10,7 @@ import {
   updateProfile
 } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { User } from '../types';
 import toast from 'react-hot-toast';
 import { handleFirestoreError, OperationType } from '../firebase';
@@ -103,7 +103,7 @@ export const useJurniAuth = () => {
       : [...user.wishlist, listingId];
 
     try {
-      await setDoc(doc(db, 'users', user.uid), { ...user, wishlist: newWishlist });
+      await updateDoc(doc(db, 'users', user.uid), { wishlist: newWishlist });
       setUser({ ...user, wishlist: newWishlist });
       toast.success(newWishlist.includes(listingId) ? 'Added to wishlist' : 'Removed from wishlist');
     } catch (err) {

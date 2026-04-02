@@ -9,7 +9,7 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
-    <section className="relative h-screen w-full bg-charcoal z-20 overflow-hidden">
+    <section className="relative min-h-[90vh] lg:h-screen w-full bg-midnight z-20 overflow-hidden flex items-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -18,55 +18,50 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
           className="h-full w-full object-cover scale-105 animate-slow-zoom"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-charcoal/20 to-charcoal/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight/70 via-midnight/30 to-midnight/90" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-32 sm:pt-40">
-        <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-12">
+      <div className="relative z-10 w-full px-6 pt-32 sm:pt-40 pb-20">
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex items-center gap-4 bg-white/5 px-8 py-3 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl"
+            className="flex items-center gap-3 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 backdrop-blur-xl mb-10"
           >
-            <Star size={16} className="text-amber fill-current animate-pulse" />
-            <span className="text-[11px] uppercase tracking-[0.5em] font-bold text-white/90">
+            <Star size={14} className="text-champagne fill-current" />
+            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-pearl/90">
               The Pinnacle of Luxury Travel
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1.2, ease: "easeOut" }}
-            className="text-[36px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-serif text-pearl leading-[1.05] tracking-tight drop-shadow-2xl max-w-5xl text-balance"
+            className="text-[40px] sm:text-[56px] md:text-[72px] lg:text-[90px] font-serif text-pearl leading-[1.1] tracking-tight drop-shadow-2xl max-w-4xl text-balance mb-8"
           >
             Journeys That Become <br />
             <span className="text-champagne italic font-light">Masterpieces</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-            className="text-xs sm:text-sm md:text-base lg:text-lg text-pearl/80 font-medium max-w-2xl mb-12 leading-relaxed tracking-wide uppercase"
+            className="text-[10px] sm:text-xs md:text-sm text-pearl/70 font-medium max-w-xl mb-16 leading-relaxed tracking-[0.2em] uppercase"
           >
             Crafting extraordinary experiences for the world's most discerning travelers. <br className="hidden md:block" /> Your legacy begins with a single <span className="text-champagne italic font-light">Jurni</span>.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 1, ease: "easeOut" }}
-            className="w-full max-w-5xl flex justify-center"
+            className="w-full max-w-4xl"
           >
-            <Button 
-              onClick={onAuthClick}
-              className="bg-champagne text-midnight px-16 py-6 rounded-2xl text-[12px] font-bold uppercase tracking-[0.4em] shadow-2xl shadow-champagne/20 hover:scale-105 transition-all"
-            >
-              Begin Your Journey
-            </Button>
+            <SearchBar />
           </motion.div>
         </div>
       </div>
@@ -76,10 +71,10 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3"
       >
-        <div className="h-12 w-[1px] bg-gradient-to-b from-amber to-transparent" />
-        <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-white/40">Scroll</span>
+        <div className="h-10 w-[1px] bg-gradient-to-b from-champagne to-transparent" />
+        <span className="text-[8px] uppercase tracking-[0.4em] font-bold text-white/30">Scroll</span>
       </motion.div>
 
       {/* Video Modal */}

@@ -69,17 +69,21 @@ service cloud.firestore {
     // ===============================================================
 
     function isValidUser(data) {
-      return data.keys().hasAll(['uid', 'email', 'displayName', 'memberSince', 'role']) &&
-             data.uid == request.auth.uid &&
+      let hasId = data.keys().hasAny(['uid', 'id']);
+      let hasRequired = data.keys().hasAll(['email', 'displayName', 'memberSince', 'role']);
+      let idMatches = (!('uid' in data) || data.uid == request.auth.uid) &&
+                      (!('id' in data) || data.id == request.auth.uid);
+      
+      return hasId && hasRequired && idMatches &&
              isValidEmail(data.email) &&
              data.role in ['user', 'admin'] &&
              (!('wishlist' in data) || data.wishlist is list) &&
-             (!('photoURL' in data) || isValidUrl(data.photoURL));
+             (!('photoURL' in data) || data.photoURL == null || data.photoURL == "" || isValidUrl(data.photoURL));
     }
 
     function isValidBooking(data) {
       return data.keys().hasAll(['id', 'userId', 'listingId', 'dates', 'guests', 'totalPrice', 'status', 'createdAt']) &&
-             data.userId == request.auth.uid &&
+             (data.userId == request.auth.uid) &&
              data.status in ['pending', 'confirmed', 'cancelled'] &&
              data.totalPrice is number && data.totalPrice >= 0;
     }

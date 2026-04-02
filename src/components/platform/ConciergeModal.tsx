@@ -77,35 +77,35 @@ export const ConciergeModal = ({ isOpen, onClose }: ConciergeModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} maxWidth="max-w-2xl" className="p-0 overflow-hidden">
-      <div className="flex flex-col h-[600px] bg-pearl">
+      <div className="flex flex-col h-[580px] bg-white">
         {/* Header */}
-        <header className="bg-midnight p-6 flex items-center justify-between relative overflow-hidden">
+        <header className="bg-midnight p-5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/80 to-midnight/40" />
-          <div className="absolute top-0 right-0 w-32 h-32 bg-champagne/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+          <div className="absolute top-0 right-0 w-24 h-24 bg-champagne/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
           
-          <div className="relative z-10 flex items-center gap-4">
-            <div className="h-12 w-12 rounded-2xl bg-champagne/20 backdrop-blur-md border border-champagne/30 flex items-center justify-center text-champagne shadow-xl">
-              <Sparkles size={24} />
+          <div className="relative z-10 flex items-center gap-3.5">
+            <div className="h-10 w-10 rounded-xl bg-champagne/20 backdrop-blur-md border border-champagne/30 flex items-center justify-center text-champagne shadow-lg">
+              <Sparkles size={20} />
             </div>
             <div>
-              <h3 className="text-xl font-serif text-pearl leading-tight">Jurni AI Concierge</h3>
+              <h3 className="text-lg font-serif text-pearl leading-tight tracking-tight">Jurni AI Concierge</h3>
               <div className="flex items-center gap-1.5">
-                <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[10px] text-pearl/40 uppercase tracking-widest font-bold">Always at your service</span>
+                <div className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[9px] text-pearl/40 uppercase tracking-widest font-bold">Always at your service</span>
               </div>
             </div>
           </div>
           
           <button 
             onClick={onClose}
-            className="relative z-10 h-10 w-10 rounded-full bg-pearl/10 text-pearl flex items-center justify-center hover:bg-pearl/20 transition-all"
+            className="relative z-10 h-8 w-8 rounded-full bg-pearl/10 text-pearl flex items-center justify-center hover:bg-pearl/20 transition-all"
           >
-            <X size={20} />
+            <X size={16} />
           </button>
         </header>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar">
+        <div className="flex-1 overflow-y-auto p-6 space-y-5 no-scrollbar bg-pearl/30">
           {messages.map((msg) => (
             <motion.div
               key={msg.id}
@@ -117,20 +117,20 @@ export const ConciergeModal = ({ isOpen, onClose }: ConciergeModalProps) => {
               )}
             >
               <div className={cn(
-                "h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm",
+                "h-7 w-7 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm",
                 msg.sender === 'ai' ? "bg-midnight text-champagne" : "bg-champagne text-midnight"
               )}>
-                {msg.sender === 'ai' ? <Sparkles size={14} /> : <User size={14} />}
+                {msg.sender === 'ai' ? <Sparkles size={12} /> : <User size={12} />}
               </div>
               <div className={cn(
-                "p-4 rounded-2xl text-sm leading-relaxed shadow-card border border-midnight/5",
+                "p-3.5 rounded-2xl text-sm leading-relaxed shadow-card border border-midnight/5",
                 msg.sender === 'ai' 
                   ? "bg-white text-midnight rounded-tl-none" 
                   : "bg-midnight text-pearl rounded-tr-none"
               )}>
                 {msg.text}
                 <div className={cn(
-                  "text-[8px] mt-2 font-bold uppercase tracking-widest opacity-30",
+                  "text-[7px] mt-1.5 font-bold uppercase tracking-widest opacity-30",
                   msg.sender === 'user' ? "text-right" : ""
                 )}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -140,13 +140,13 @@ export const ConciergeModal = ({ isOpen, onClose }: ConciergeModalProps) => {
           ))}
           {isTyping && (
             <div className="flex gap-3 max-w-[85%]">
-              <div className="h-8 w-8 rounded-full bg-midnight text-champagne flex items-center justify-center shadow-sm">
-                <Sparkles size={14} />
+              <div className="h-7 w-7 rounded-full bg-midnight text-champagne flex items-center justify-center shadow-sm">
+                <Sparkles size={12} />
               </div>
-              <div className="bg-white p-4 rounded-2xl rounded-tl-none border border-midnight/5 shadow-card flex gap-1">
-                <div className="h-1.5 w-1.5 bg-midnight/20 rounded-full animate-bounce" />
-                <div className="h-1.5 w-1.5 bg-midnight/20 rounded-full animate-bounce [animation-delay:0.2s]" />
-                <div className="h-1.5 w-1.5 bg-midnight/20 rounded-full animate-bounce [animation-delay:0.4s]" />
+              <div className="bg-white p-3.5 rounded-2xl rounded-tl-none border border-midnight/5 shadow-card flex gap-1">
+                <div className="h-1 w-1 bg-midnight/20 rounded-full animate-bounce" />
+                <div className="h-1 w-1 bg-midnight/20 rounded-full animate-bounce [animation-delay:0.2s]" />
+                <div className="h-1 w-1 bg-midnight/20 rounded-full animate-bounce [animation-delay:0.4s]" />
               </div>
             </div>
           )}
@@ -154,13 +154,13 @@ export const ConciergeModal = ({ isOpen, onClose }: ConciergeModalProps) => {
         </div>
 
         {/* Quick Actions */}
-        <div className="px-6 py-4 border-t border-midnight/5 bg-midnight/[0.02]">
-          <div className="flex gap-3 overflow-x-auto no-scrollbar">
+        <div className="px-6 py-3 border-t border-midnight/5 bg-white">
+          <div className="flex gap-2 overflow-x-auto no-scrollbar">
             {['Private Jet', 'Fine Dining', 'VIP Access', 'Chauffeur'].map(action => (
               <button 
                 key={action}
                 onClick={() => setInputText(prev => prev + (prev ? ' ' : '') + action)}
-                className="px-4 py-2 bg-white border border-midnight/5 rounded-full text-[10px] font-bold uppercase tracking-widest text-midnight/60 hover:border-champagne hover:text-midnight transition-all whitespace-nowrap shadow-sm"
+                className="px-3.5 py-1.5 bg-midnight/[0.03] border border-midnight/5 rounded-full text-[9px] font-bold uppercase tracking-widest text-midnight/40 hover:border-champagne hover:text-midnight transition-all whitespace-nowrap"
               >
                 {action}
               </button>
@@ -169,21 +169,21 @@ export const ConciergeModal = ({ isOpen, onClose }: ConciergeModalProps) => {
         </div>
 
         {/* Input */}
-        <form onSubmit={handleSend} className="p-6 bg-white border-t border-midnight/5">
+        <form onSubmit={handleSend} className="p-5 bg-white border-t border-midnight/5">
           <div className="relative group">
             <input 
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask your concierge anything..."
-              className="w-full bg-midnight/[0.03] border border-transparent focus:border-champagne/30 p-5 pr-16 text-sm focus:ring-4 focus:ring-champagne/5 outline-none rounded-2xl transition-all placeholder:text-midnight/20"
+              className="w-full bg-midnight/[0.02] border border-midnight/5 focus:border-champagne/30 p-4 pr-14 text-sm focus:ring-4 focus:ring-champagne/5 outline-none rounded-xl transition-all placeholder:text-midnight/20"
             />
             <button 
               type="submit"
               disabled={!inputText.trim()}
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 bg-midnight text-champagne rounded-xl flex items-center justify-center hover:bg-midnight/90 disabled:opacity-30 transition-all shadow-lg shadow-midnight/20"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 h-9 w-9 bg-midnight text-champagne rounded-lg flex items-center justify-center hover:bg-midnight/90 disabled:opacity-30 transition-all shadow-lg shadow-midnight/10"
             >
-              <Send size={18} />
+              <Send size={16} />
             </button>
           </div>
         </form>

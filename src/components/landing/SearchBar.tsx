@@ -17,31 +17,31 @@ export const SearchBar = () => {
       >
         <button 
           onClick={() => setIsSearchModalOpen(true)}
-          className="w-full bg-pearl/95 backdrop-blur-2xl border border-midnight/5 p-4 sm:p-6 rounded-[32px] shadow-2xl flex flex-col sm:flex-row items-center gap-4 sm:gap-0 group hover:shadow-hover transition-all duration-700 text-left"
+          className="w-full bg-white/95 backdrop-blur-2xl border border-midnight/5 p-3 sm:p-4 rounded-[24px] shadow-card flex flex-col sm:flex-row items-center gap-4 sm:gap-0 group hover:shadow-hover transition-all duration-700 text-left"
         >
-          <div className="flex-1 w-full flex items-center gap-8 px-4 sm:px-10">
-            <div className="h-14 w-14 rounded-2xl bg-midnight/5 flex items-center justify-center text-midnight group-hover:bg-midnight group-hover:text-champagne transition-all duration-700">
-              <Search size={24} strokeWidth={2} />
+          <div className="flex-1 w-full flex items-center gap-6 px-4 sm:px-8">
+            <div className="h-12 w-12 rounded-xl bg-midnight/5 flex items-center justify-center text-midnight group-hover:bg-midnight group-hover:text-champagne transition-all duration-700">
+              <Search size={20} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
-              <p className="text-midnight/40 text-[9px] font-bold uppercase tracking-[0.4em] mb-1">Elite Search</p>
-              <span className="text-midnight/80 text-xl sm:text-2xl font-serif italic tracking-tight">Where would you like to escape?</span>
+              <p className="text-midnight/30 text-[8px] font-bold uppercase tracking-[0.4em] mb-0.5">Elite Search</p>
+              <span className="text-midnight/80 text-lg sm:text-xl font-serif italic tracking-tight">Where would you like to escape?</span>
             </div>
           </div>
           
-          <div className="hidden sm:flex items-center gap-16 px-16 border-l border-midnight/10">
+          <div className="hidden sm:flex items-center gap-12 px-12 border-l border-midnight/10">
             <div className="flex flex-col">
-              <p className="text-midnight/40 text-[9px] font-bold uppercase tracking-[0.4em] mb-1">When</p>
-              <span className="text-midnight/80 text-xs font-bold uppercase tracking-[0.2em]">Add Dates</span>
+              <p className="text-midnight/30 text-[8px] font-bold uppercase tracking-[0.4em] mb-0.5">When</p>
+              <span className="text-midnight/80 text-[10px] font-bold uppercase tracking-[0.2em]">Add Dates</span>
             </div>
             <div className="flex flex-col">
-              <p className="text-midnight/40 text-[9px] font-bold uppercase tracking-[0.4em] mb-1">Who</p>
-              <span className="text-midnight/80 text-xs font-bold uppercase tracking-[0.2em]">Add Guests</span>
+              <p className="text-midnight/30 text-[8px] font-bold uppercase tracking-[0.4em] mb-0.5">Who</p>
+              <span className="text-midnight/80 text-[10px] font-bold uppercase tracking-[0.2em]">Add Guests</span>
             </div>
           </div>
 
-          <div className="h-16 w-16 sm:h-20 sm:w-20 bg-champagne rounded-2xl flex items-center justify-center text-midnight group-hover:scale-105 group-hover:rotate-3 transition-all duration-700 shadow-xl shadow-champagne/20 shrink-0 sm:ml-6">
-            <Compass size={32} className="group-hover:animate-spin-slow" />
+          <div className="h-14 w-14 sm:h-16 sm:w-16 bg-champagne rounded-xl flex items-center justify-center text-midnight group-hover:scale-105 group-hover:rotate-3 transition-all duration-700 shadow-lg shadow-champagne/20 shrink-0 sm:ml-4">
+            <Compass size={28} className="group-hover:animate-spin-slow" />
           </div>
         </button>
       </motion.div>

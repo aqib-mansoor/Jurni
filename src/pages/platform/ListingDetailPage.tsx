@@ -39,6 +39,29 @@ export const ListingDetailPage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
+  const mockReviews: Review[] = [
+    {
+      id: 'mock-1',
+      listingId: id || '',
+      userId: 'user-1',
+      userName: 'Alexander Vanderbilt',
+      userAvatar: 'https://i.pravatar.cc/150?u=alex',
+      rating: 5,
+      comment: 'An absolutely transcendent experience. The attention to detail and level of service was beyond anything I have encountered in my travels.',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString()
+    },
+    {
+      id: 'mock-2',
+      listingId: id || '',
+      userId: 'user-2',
+      userName: 'Isabella Rossi',
+      userAvatar: 'https://i.pravatar.cc/150?u=isabella',
+      rating: 5,
+      comment: 'Pure luxury from start to finish. The concierge team anticipated our every need before we even realized it ourselves.',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14).toISOString()
+    }
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       if (!id) return;
@@ -51,7 +74,8 @@ export const ListingDetailPage = () => {
           // Fetch reviews
           const reviewsQ = query(collection(db, 'reviews'), where('listingId', '==', id));
           const reviewsSnap = await getDocs(reviewsQ);
-          setReviews(reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Review)));
+          const fetchedReviews = reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Review));
+          setReviews(fetchedReviews.length > 0 ? fetchedReviews : mockReviews);
         } else {
           navigate('/platform/explore');
         }
@@ -138,9 +162,9 @@ export const ListingDetailPage = () => {
                     <div className="h-1 w-1 rounded-full bg-midnight/10" />
                     <RatingStars rating={listing.rating} showCount count={listing.reviewsCount} />
                   </div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-midnight leading-tight tracking-tight">{listing.title}</h1>
-                  <div className="flex items-center gap-2 text-midnight/50 text-sm">
-                    <MapPin size={16} className="text-champagne" />
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-midnight leading-[1.1] tracking-tight">{listing.title}</h1>
+                  <div className="flex items-center gap-2 text-midnight/40 text-sm font-medium">
+                    <MapPin size={14} className="text-champagne" />
                     {listing.location}
                   </div>
                 </div>
@@ -205,25 +229,32 @@ export const ListingDetailPage = () => {
               </div>
             </section>
 
-            <section className="p-8 md:p-10 bg-midnight rounded-[32px] text-pearl relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-champagne/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-              <div className="relative z-10 space-y-8">
-                <div className="space-y-2">
-                  <span className="text-champagne font-bold text-[9px] tracking-[0.3em] uppercase">Exclusive Privileges</span>
-                  <h2 className="text-2xl md:text-3xl font-serif tracking-tight">What's Included</h2>
+            <section className="p-10 md:p-12 bg-midnight rounded-[40px] text-pearl relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-champagne/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-pearl/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+              
+              <div className="relative z-10 space-y-10">
+                <div className="space-y-3">
+                  <span className="text-champagne font-bold text-[10px] tracking-[0.4em] uppercase">Exclusive Privileges</span>
+                  <h2 className="text-3xl md:text-4xl font-serif tracking-tight">What's Included</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                   {[
-                    'Private Concierge 24/7',
-                    'VIP Airport Transfer',
-                    'Curated Local Experiences',
-                    'Elite Insurance Coverage',
-                    'Welcome Champagne Service',
-                    'Flexible Check-in/out'
+                    { title: 'Private Concierge', desc: 'Dedicated 24/7 elite support' },
+                    { title: 'VIP Transfers', desc: 'Seamless luxury transportation' },
+                    { title: 'Curated Access', desc: 'Exclusive local experiences' },
+                    { title: 'Elite Coverage', desc: 'Comprehensive premium insurance' },
+                    { title: 'Welcome Ritual', desc: 'Champagne & local delicacies' },
+                    { title: 'Flexible Bound', desc: 'Priority check-in & late departure' }
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <Sparkles size={14} className="text-champagne" />
-                      <span className="text-sm font-light text-pearl/70">{item}</span>
+                    <div key={i} className="flex items-start gap-4 group">
+                      <div className="h-10 w-10 rounded-xl bg-pearl/5 border border-pearl/10 flex items-center justify-center text-champagne group-hover:bg-champagne group-hover:text-midnight transition-all duration-500 shrink-0">
+                        <Sparkles size={16} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-pearl tracking-tight">{item.title}</p>
+                        <p className="text-[11px] text-pearl/40 font-medium mt-0.5">{item.desc}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -262,8 +293,15 @@ export const ListingDetailPage = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="col-span-2 text-center py-12 bg-midnight/5 rounded-[24px] border border-dashed border-midnight/10">
-                    <p className="text-midnight/30 italic font-serif">No reviews yet for this masterpiece.</p>
+                  <div className="col-span-2 text-center py-16 bg-white rounded-[32px] border border-midnight/5 shadow-sm relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-champagne/20" />
+                    <div className="max-w-xs mx-auto space-y-4">
+                      <div className="h-12 w-12 rounded-full bg-midnight/5 flex items-center justify-center mx-auto text-midnight/20">
+                        <Star size={24} />
+                      </div>
+                      <p className="text-midnight/40 italic font-serif text-lg">This masterpiece is awaiting its first chronicle.</p>
+                      <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-midnight/20">Be the first to share your journey</p>
+                    </div>
                   </div>
                 )}
               </div>
