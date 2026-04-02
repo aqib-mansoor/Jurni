@@ -26,65 +26,70 @@ const links = {
 
 export const Footer = () => {
   return (
-    <footer className="bg-midnight text-pearl pt-16 sm:pt-32 pb-8 sm:pb-12 px-4 sm:px-8 overflow-hidden relative">
+    <footer className="bg-midnight text-pearl pt-32 pb-16 px-6 sm:px-12 overflow-hidden relative">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-pearl/10 to-transparent" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#F7D794 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-champagne/30 to-transparent" />
+      <div className="absolute -top-48 -right-48 w-[600px] h-[600px] bg-champagne opacity-[0.05] rounded-full blur-[120px]" />
+      <div className="absolute -bottom-48 -left-48 w-[600px] h-[600px] bg-rose opacity-[0.04] rounded-full blur-[120px]" />
       
       <div className="max-w-screen-2xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-16 sm:mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 mb-32">
           {/* Brand Column */}
-          <div className="lg:col-span-4">
-            <h2 className="text-3xl sm:text-4xl font-serif text-champagne tracking-tighter mb-6 sm:mb-8">Jurni</h2>
-            <p className="text-pearl/50 text-xs sm:text-sm leading-relaxed mb-8 sm:mb-12 max-w-sm font-light">
-              Crafting extraordinary journeys for the world's most discerning travelers. Every detail is a masterpiece, every moment is a legacy.
-            </p>
+          <div className="lg:col-span-4 space-y-12">
+            <div className="space-y-6">
+              <h2 className="text-5xl font-serif text-champagne tracking-tighter">Jurni</h2>
+              <p className="text-pearl/50 text-lg leading-relaxed max-w-sm font-medium italic">
+                Crafting extraordinary journeys for the world's most discerning travelers. Every detail is a masterpiece, every moment is a legacy.
+              </p>
+            </div>
             
-            <div className="flex items-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-5">
               {[Instagram, Twitter, Facebook, Linkedin].map((Icon, i) => (
                 <motion.a
                   key={i}
                   href="#"
-                  whileHover={{ y: -5, color: '#F7D794' }}
-                  className="h-9 w-9 sm:h-10 sm:w-10 border border-pearl/10 rounded-full flex items-center justify-center text-pearl/40 hover:border-champagne transition-all duration-500"
+                  whileHover={{ y: -8, color: '#F7D794', borderColor: '#F7D794' }}
+                  className="h-14 w-14 border border-pearl/10 rounded-2xl flex items-center justify-center text-pearl/30 hover:bg-pearl/5 transition-all duration-700 shadow-2xl"
                 >
-                  <Icon size={16} className="sm:size-[18px]" />
+                  <Icon size={22} strokeWidth={1.5} />
                 </motion.a>
               ))}
             </div>
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
-            <div>
-              <h4 className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold text-champagne mb-6 sm:mb-8">Company</h4>
-              <ul className="space-y-3 sm:space-y-4">
+          <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-16">
+            <div className="space-y-10">
+              <h4 className="text-[10px] uppercase tracking-[0.5em] font-bold text-champagne/60">The Company</h4>
+              <ul className="space-y-5">
                 {links.company.map(link => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-xs sm:text-sm text-pearl/40 hover:text-pearl transition-colors duration-500 font-light">
+                    <a href={link.href} className="text-base text-pearl/40 hover:text-champagne transition-all duration-500 font-medium block hover:translate-x-2">
                       {link.name}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold text-champagne mb-6 sm:mb-8">Services</h4>
-              <ul className="space-y-3 sm:space-y-4">
+            <div className="space-y-10">
+              <h4 className="text-[10px] uppercase tracking-[0.5em] font-bold text-champagne/60">Our Services</h4>
+              <ul className="space-y-5">
                 {links.services.map(link => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-xs sm:text-sm text-pearl/40 hover:text-pearl transition-colors duration-500 font-light">
+                    <a href={link.href} className="text-base text-pearl/40 hover:text-champagne transition-all duration-500 font-medium block hover:translate-x-2">
                       {link.name}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="col-span-2 sm:col-span-1">
-              <h4 className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold text-champagne mb-6 sm:mb-8">Legal</h4>
-              <ul className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-4">
+            <div className="col-span-2 sm:col-span-1 space-y-10">
+              <h4 className="text-[10px] uppercase tracking-[0.5em] font-bold text-champagne/60">Legal Elite</h4>
+              <ul className="grid grid-cols-2 sm:grid-cols-1 gap-5">
                 {links.legal.map(link => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-xs sm:text-sm text-pearl/40 hover:text-pearl transition-colors duration-500 font-light">
+                    <a href={link.href} className="text-base text-pearl/40 hover:text-champagne transition-all duration-500 font-medium block hover:translate-x-2">
                       {link.name}
                     </a>
                   </li>
@@ -94,45 +99,58 @@ export const Footer = () => {
           </div>
 
           {/* Newsletter Column */}
-          <div className="lg:col-span-4">
-            <h4 className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold text-champagne mb-6 sm:mb-8">Newsletter</h4>
-            <p className="text-xs sm:text-sm text-pearl/50 mb-6 sm:mb-8 font-light">Subscribe to receive exclusive travel inspiration and elite offers.</p>
+          <div className="lg:col-span-3 space-y-12">
+            <div className="space-y-6">
+              <h4 className="text-[10px] uppercase tracking-[0.5em] font-bold text-champagne/60">The Newsletter</h4>
+              <p className="text-base text-pearl/50 font-medium leading-relaxed">Subscribe to receive exclusive travel inspiration and elite offers.</p>
+            </div>
             
             <div className="relative group">
               <input 
                 type="email" 
                 placeholder="Your email address"
-                className="w-full bg-pearl/5 border border-pearl/10 py-3 sm:py-4 px-4 sm:px-6 text-xs sm:text-sm text-pearl placeholder:text-pearl/20 focus:outline-none focus:border-champagne transition-all duration-500 rounded-none"
+                className="w-full bg-pearl/5 border border-pearl/10 py-6 px-8 text-base text-pearl placeholder:text-pearl/20 focus:outline-none focus:border-champagne transition-all duration-700 rounded-[20px] shadow-inner"
               />
-              <button className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2 h-8 w-8 sm:h-10 sm:w-10 bg-champagne text-midnight rounded-none flex items-center justify-center hover:bg-pearl transition-all duration-500">
-                <ArrowRight size={16} className="sm:size-[18px]" />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 h-14 w-14 bg-champagne text-midnight rounded-2xl flex items-center justify-center hover:bg-white transition-all duration-700 shadow-2xl shadow-champagne/20">
+                <ArrowRight size={24} />
               </button>
             </div>
             
-            <div className="mt-8 sm:mt-12 space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-3 sm:gap-4 text-pearl/40">
-                <Mail size={14} className="text-champagne sm:size-4" />
-                <span className="text-[10px] sm:text-xs font-light tracking-widest uppercase">concierge@jurni.com</span>
+            <div className="space-y-5 pt-4">
+              <div className="flex items-center gap-5 text-pearl/30 group cursor-pointer">
+                <div className="h-10 w-10 rounded-xl bg-pearl/5 flex items-center justify-center group-hover:bg-champagne group-hover:text-midnight transition-all duration-500">
+                  <Mail size={18} />
+                </div>
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase group-hover:text-pearl transition-colors">concierge@jurni.com</span>
               </div>
-              <div className="flex items-center gap-3 sm:gap-4 text-pearl/40">
-                <Phone size={14} className="text-champagne sm:size-4" />
-                <span className="text-[10px] sm:text-xs font-light tracking-widest uppercase">+1 (800) JURNI-LUXE</span>
+              <div className="flex items-center gap-5 text-pearl/30 group cursor-pointer">
+                <div className="h-10 w-10 rounded-xl bg-pearl/5 flex items-center justify-center group-hover:bg-champagne group-hover:text-midnight transition-all duration-500">
+                  <Phone size={18} />
+                </div>
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase group-hover:text-pearl transition-colors">+1 (800) JURNI-LUXE</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 sm:pt-12 border-t border-pearl/10 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
-          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] font-bold text-pearl/20 text-center md:text-left">
-            © 2024 Jurni Luxury Travel. All Rights Reserved.
-          </p>
+        <div className="pt-16 border-t border-pearl/10 flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col items-center lg:items-start gap-4">
+            <p className="text-[11px] uppercase tracking-[0.4em] font-bold text-pearl/20">
+              © {new Date().getFullYear()} Jurni Luxury Travel. All Rights Reserved.
+            </p>
+            <div className="flex items-center gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-pearl/10">
+              <a href="#" className="hover:text-champagne transition-colors">Privacy</a>
+              <a href="#" className="hover:text-champagne transition-colors">Terms</a>
+              <a href="#" className="hover:text-champagne transition-colors">Cookies</a>
+            </div>
+          </div>
           
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 opacity-20 grayscale">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" className="h-3 sm:h-4" referrerPolicy="no-referrer" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" className="h-4 sm:h-6" referrerPolicy="no-referrer" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" className="h-3 sm:h-4" referrerPolicy="no-referrer" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_Pay_logo.svg/1920px-Apple_Pay_logo.svg.png" alt="Apple Pay" className="h-4 sm:h-6" referrerPolicy="no-referrer" />
+          <div className="flex flex-wrap items-center justify-center gap-10 opacity-10 grayscale hover:opacity-40 transition-all duration-1000">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" className="h-5" referrerPolicy="no-referrer" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" className="h-8" referrerPolicy="no-referrer" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" className="h-5" referrerPolicy="no-referrer" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_Pay_logo.svg/1920px-Apple_Pay_logo.svg.png" alt="Apple Pay" className="h-8" referrerPolicy="no-referrer" />
           </div>
         </div>
       </div>

@@ -60,86 +60,89 @@ export const SettingsPage = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-8 max-w-5xl mx-auto space-y-8 lg:space-y-12">
-      <div data-aos="fade-down">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-midnight mb-2">Settings</h1>
-        <p className="text-sm sm:text-base text-midnight opacity-60 font-light italic">Refine your experience and manage your preferences.</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-        {/* Sidebar Navigation */}
-        <div className="lg:col-span-1 space-y-4" data-aos="fade-right">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className="w-full flex items-center gap-4 p-4 text-left bg-white border border-midnight border-opacity-5 hover:border-champagne transition-all group"
-            >
-              <div className="h-10 w-10 rounded-none bg-pearl flex items-center justify-center text-midnight opacity-40 group-hover:text-champagne group-hover:opacity-100 transition-all">
-                <section.icon size={20} />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-midnight">{section.title}</p>
-                <p className="text-[10px] text-midnight opacity-40 uppercase tracking-wider">Manage {section.id}</p>
-              </div>
-            </button>
-          ))}
+    <div className="bg-pearl min-h-screen py-12 lg:py-20 px-6 sm:px-12">
+      <div className="max-w-screen-2xl mx-auto space-y-12 lg:space-y-16">
+        <div data-aos="fade-down">
+          <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block mb-4">Preferences</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-midnight leading-[1.1] tracking-tight">Settings</h1>
+          <p className="text-lg text-midnight/60 mt-4 max-w-2xl italic">Refine your experience and manage your preferences. Tailored to your unique journey.</p>
         </div>
 
-        {/* Settings Content */}
-        <div className="lg:col-span-2 space-y-8" data-aos="fade-left">
-          {sections.map((section) => (
-            <Card key={section.id} className="p-6 sm:p-8 space-y-6 rounded-none shadow-lg border-none">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-12 w-12 rounded-none bg-pearl flex items-center justify-center text-champagne">
-                  <section.icon size={24} />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Sidebar Navigation */}
+          <div className="lg:col-span-4 space-y-4" data-aos="fade-right">
+            {sections.map((section) => (
+              <button
+                key={section.id}
+                className="w-full flex items-center gap-6 p-6 text-left bg-pearl border border-midnight/5 hover:border-champagne/50 transition-all group rounded-2xl shadow-sm hover:shadow-md"
+              >
+                <div className="h-12 w-12 rounded-xl bg-midnight/5 flex items-center justify-center text-midnight/40 group-hover:text-champagne group-hover:bg-midnight transition-all duration-500 shadow-inner">
+                  <section.icon size={20} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif text-midnight">{section.title}</h3>
-                  <p className="text-xs text-midnight opacity-50">{section.description}</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-midnight">{section.title}</p>
+                  <p className="text-[10px] text-midnight/40 uppercase tracking-widest mt-1">Manage {section.id}</p>
                 </div>
-              </div>
+              </button>
+            ))}
+          </div>
 
-              <div className="space-y-4">
-                {section.items.map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between py-4 border-b border-midnight border-opacity-5 last:border-0">
-                    <span className="text-sm font-medium text-midnight opacity-70">{item.label}</span>
-                    
-                    {item.type === 'text' && (
-                      <span className="text-sm font-serif text-midnight">{item.value}</span>
-                    )}
-
-                    {item.type === 'toggle' && (
-                      <Switch
-                        checked={item.state}
-                        onChange={item.setter}
-                        className={cn(
-                          item.state ? 'bg-champagne' : 'bg-midnight bg-opacity-10',
-                          'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none'
-                        )}
-                      >
-                        <span
-                          className={cn(
-                            item.state ? 'translate-x-6' : 'translate-x-1',
-                            'inline-block h-4 w-4 transform rounded-full bg-white transition-transform'
-                          )}
-                        />
-                      </Switch>
-                    )}
-
-                    {item.type === 'link' && (
-                      <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-champagne hover:underline">
-                        {item.value} <ChevronRight size={12} />
-                      </button>
-                    )}
+          {/* Settings Content */}
+          <div className="lg:col-span-8 space-y-10" data-aos="fade-left">
+            {sections.map((section) => (
+              <Card key={section.id} className="p-8 lg:p-10 space-y-10 rounded-[32px] shadow-card border-midnight/5 bg-pearl hover:shadow-hover transition-all duration-700">
+                <div className="flex items-center gap-6">
+                  <div className="h-14 w-14 rounded-2xl bg-midnight/5 flex items-center justify-center text-champagne shadow-inner">
+                    <section.icon size={28} />
                   </div>
-                ))}
-              </div>
-            </Card>
-          ))}
+                  <div>
+                    <h3 className="text-2xl font-serif text-midnight leading-tight">{section.title}</h3>
+                    <p className="text-sm text-midnight/50 mt-1">{section.description}</p>
+                  </div>
+                </div>
 
-          <div className="pt-8 flex justify-end gap-4">
-            <Button variant="outline" className="rounded-none">Reset to Defaults</Button>
-            <Button className="rounded-none px-8">Save All Changes</Button>
+                <div className="space-y-2">
+                  {section.items.map((item, idx) => (
+                    <div key={idx} className="flex items-center justify-between py-6 border-b border-midnight/5 last:border-0 group/item">
+                      <span className="text-sm font-bold text-midnight/70 group-hover/item:text-midnight transition-colors">{item.label}</span>
+                      
+                      {item.type === 'text' && (
+                        <span className="text-sm font-serif text-midnight font-bold">{item.value}</span>
+                      )}
+
+                      {item.type === 'toggle' && (
+                        <Switch
+                          checked={item.state}
+                          onChange={item.setter}
+                          className={cn(
+                            item.state ? 'bg-champagne' : 'bg-midnight/10',
+                            'relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-500 focus:outline-none shadow-inner'
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              item.state ? 'translate-x-6' : 'translate-x-1',
+                              'inline-block h-5 w-5 transform rounded-full bg-pearl transition-transform duration-500 shadow-md'
+                            )}
+                          />
+                        </Switch>
+                      )}
+
+                      {item.type === 'link' && (
+                        <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-champagne hover:text-midnight transition-all">
+                          {item.value} <ChevronRight size={14} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            ))}
+
+            <div className="pt-12 flex flex-col sm:flex-row justify-end gap-6">
+              <Button variant="outline" className="rounded-2xl px-10 py-5 text-xs font-bold uppercase tracking-widest text-midnight/40 hover:text-midnight border-midnight/10">Reset to Defaults</Button>
+              <Button className="rounded-2xl px-12 py-5 text-xs font-bold uppercase tracking-widest shadow-2xl shadow-champagne/20">Save All Changes</Button>
+            </div>
           </div>
         </div>
       </div>

@@ -139,143 +139,146 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
           <AnimatePresence mode="wait">
             <motion.div
               key={mode}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-10"
             >
-              <div className="space-y-2">
-                <h3 className="text-3xl font-serif text-midnight">
-                  {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+              <div className="space-y-3">
+                <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block">
+                  {mode === 'login' ? 'Welcome Back' : 'Join Jurni'}
+                </span>
+                <h3 className="text-4xl lg:text-5xl font-serif text-midnight leading-tight tracking-tight">
+                  {mode === 'login' ? 'Sign In' : 'Create Account'}
                 </h3>
-                <p className="text-sm text-midnight/60 font-light">
+                <p className="text-base lg:text-lg text-midnight/50 font-light leading-relaxed">
                   {mode === 'login' 
-                    ? 'Enter your details to access your luxury portfolio.' 
-                    : 'Join our exclusive community of global travelers.'}
+                    ? 'Enter your credentials to access your curated travel portfolio.' 
+                    : 'Begin your journey into the world\'s most exclusive experiences.'}
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <Button 
-                  className="w-full py-4 flex items-center justify-center gap-3 rounded-none border border-midnight/10 hover:border-champagne bg-white text-midnight hover:bg-pearl transition-all shadow-sm"
+                  className="w-full py-5 flex items-center justify-center gap-4 rounded-2xl border border-midnight/10 hover:border-champagne bg-white text-midnight hover:bg-pearl transition-all shadow-sm group"
                   onClick={handleGoogleLogin}
                   isLoading={isLoading}
                   type="button"
                 >
-                  <Chrome size={18} className="text-champagne" />
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Continue with Google</span>
+                  <Chrome size={20} className="text-champagne group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Continue with Google</span>
                 </Button>
 
                 <div className="relative py-4">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-midnight/10"></div>
+                    <div className="w-full border-t border-midnight/5"></div>
                   </div>
-                  <div className="relative flex justify-center text-[8px] uppercase tracking-[0.3em] font-bold">
-                    <span className="bg-pearl px-4 text-midnight/30">Or use email</span>
+                  <div className="relative flex justify-center text-[9px] uppercase tracking-[0.4em] font-bold">
+                    <span className="bg-pearl px-6 text-midnight/20">Or use email</span>
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {mode === 'signup' && (
-                    <div className="space-y-1">
-                      <label className="text-[9px] uppercase tracking-widest font-bold opacity-40 ml-1">Full Name</label>
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-midnight/40 ml-1">Full Name</label>
                       <div className="relative group">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                          <User className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={16} />
+                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                          <User className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={18} />
                         </div>
                         <input 
                           type="text" 
                           placeholder="Alexander Jurni"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          className="w-full bg-midnight/5 border-none p-4 pl-12 text-sm focus:ring-1 focus:ring-champagne outline-none rounded-none transition-all"
+                          className="w-full bg-midnight/[0.03] border border-transparent focus:border-champagne/30 p-5 pl-14 text-sm focus:ring-4 focus:ring-champagne/5 outline-none rounded-2xl transition-all placeholder:text-midnight/20"
                           required={mode === 'signup'}
                         />
                       </div>
                     </div>
                   )}
                   
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase tracking-widest font-bold opacity-40 ml-1">Email Address</label>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-bold text-midnight/40 ml-1">Email Address</label>
                     <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <Mail className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={16} />
+                      <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <Mail className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={18} />
                       </div>
                       <input 
                         type="email" 
                         placeholder="alexander@jurni.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-midnight/5 border-none p-4 pl-12 text-sm focus:ring-1 focus:ring-champagne outline-none rounded-none transition-all"
+                        className="w-full bg-midnight/[0.03] border border-transparent focus:border-champagne/30 p-5 pl-14 text-sm focus:ring-4 focus:ring-champagne/5 outline-none rounded-2xl transition-all placeholder:text-midnight/20"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <label className="text-[9px] uppercase tracking-widest font-bold opacity-40 ml-1">Password</label>
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-midnight/40 ml-1">Password</label>
                       {mode === 'login' && (
-                        <button type="button" className="text-[8px] uppercase tracking-widest font-bold text-champagne hover:underline">Forgot?</button>
+                        <button type="button" className="text-[9px] uppercase tracking-widest font-bold text-champagne hover:text-midnight transition-colors">Forgot Password?</button>
                       )}
                     </div>
                     <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <Lock className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={16} />
+                      <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <Lock className="text-midnight opacity-20 group-focus-within:text-champagne group-focus-within:opacity-100 transition-all" size={18} />
                       </div>
                       <input 
                         type={showPassword ? 'text' : 'password'} 
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full bg-midnight/5 border-none p-4 pl-12 pr-12 text-sm focus:ring-1 focus:ring-champagne outline-none rounded-none transition-all"
+                        className="w-full bg-midnight/[0.03] border border-transparent focus:border-champagne/30 p-5 pl-14 pr-14 text-sm focus:ring-4 focus:ring-champagne/5 outline-none rounded-2xl transition-all placeholder:text-midnight/20"
                         required
                       />
                       <button 
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-midnight opacity-20 hover:opacity-100 transition-all"
+                        className="absolute inset-y-0 right-0 pr-5 flex items-center text-midnight opacity-20 hover:opacity-100 transition-all"
                       >
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                       </button>
                     </div>
                   </div>
 
                   <Button 
-                    className="w-full py-4 rounded-none text-[10px] uppercase tracking-[0.2em] font-bold mt-4 group"
+                    className="w-full py-5 rounded-2xl text-[11px] uppercase tracking-[0.3em] font-bold mt-6 group bg-midnight text-pearl hover:bg-midnight/90 shadow-2xl shadow-midnight/20"
                     isLoading={isLoading}
                     type="submit"
                   >
-                    <span className="flex items-center justify-center gap-2">
+                    <span className="flex items-center justify-center gap-3">
                       {mode === 'login' ? 'Sign In' : 'Create Account'}
-                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </span>
                   </Button>
                 </form>
               </div>
 
-              <div className="pt-6 border-t border-midnight/5 flex flex-col items-center gap-4">
+              <div className="pt-8 border-t border-midnight/5 flex flex-col items-center gap-6">
                 <button 
                   onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-                  className="text-[10px] uppercase tracking-widest font-bold text-midnight/60 hover:text-midnight transition-colors flex items-center gap-2"
+                  className="text-[11px] uppercase tracking-widest font-bold text-midnight/60 hover:text-midnight transition-colors flex items-center gap-3 group"
                 >
                   {mode === 'login' ? (
                     <>
-                      <UserPlus size={14} className="text-champagne" />
-                      Don't have an account? <span className="text-midnight underline">Sign Up</span>
+                      <UserPlus size={16} className="text-champagne group-hover:scale-110 transition-transform" />
+                      Don't have an account? <span className="text-midnight underline underline-offset-4 decoration-champagne/50">Sign Up</span>
                     </>
                   ) : (
                     <>
-                      <LogIn size={14} className="text-champagne" />
-                      Already a member? <span className="text-midnight underline">Sign In</span>
+                      <LogIn size={16} className="text-champagne group-hover:scale-110 transition-transform" />
+                      Already a member? <span className="text-midnight underline underline-offset-4 decoration-champagne/50">Sign In</span>
                     </>
                   )}
                 </button>
 
-                <p className="text-[9px] text-center text-midnight/40 leading-relaxed uppercase tracking-widest max-w-[240px]">
+                <p className="text-[10px] text-center text-midnight/30 leading-relaxed uppercase tracking-[0.2em] max-w-[280px]">
                   By continuing, you agree to Jurni's <br />
-                  <span className="underline cursor-pointer hover:text-midnight">Terms</span> and <span className="underline cursor-pointer hover:text-midnight">Privacy Policy</span>
+                  <span className="underline cursor-pointer hover:text-midnight transition-colors">Terms of Service</span> and <span className="underline cursor-pointer hover:text-midnight transition-colors">Privacy Policy</span>
                 </p>
               </div>
             </motion.div>

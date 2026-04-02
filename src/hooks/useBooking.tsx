@@ -77,7 +77,7 @@ export const useBooking = () => {
       const newBookingRef = doc(collection(db, path));
       const bookingData = {
         id: newBookingRef.id,
-        userId: user.id,
+        userId: user.uid,
         listingId,
         dates,
         guests: {

@@ -12,9 +12,11 @@ interface ConfirmationModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
-  type?: 'danger' | 'warning' | 'info';
+  type?: 'danger' | 'warning' | 'info' | 'logout';
   isLoading?: boolean;
   confirmInput?: string; // For delete account: requires typing "DELETE"
+  icon?: React.ReactNode;
+  requireConfirmationText?: string;
 }
 
 export const ConfirmationModal = ({
@@ -27,27 +29,34 @@ export const ConfirmationModal = ({
   cancelText = 'Cancel',
   type = 'info',
   isLoading = false,
-  confirmInput
+  confirmInput,
+  icon,
+  requireConfirmationText
 }: ConfirmationModalProps) => {
   const [inputValue, setInputValue] = React.useState('');
 
-  const isConfirmDisabled = confirmInput ? inputValue !== confirmInput : false;
+  const finalConfirmInput = confirmInput || requireConfirmationText;
+  const isConfirmDisabled = finalConfirmInput ? inputValue !== finalConfirmInput : false;
 
   const getIcon = () => {
+    if (icon) return icon;
     switch (type) {
       case 'danger':
-        return <Trash2 className="h-12 w-12 text-dusty-rose" />;
+        return <Trash2 className="h-10 w-10 text-terracotta" />;
+      case 'logout':
+        return <LogOut className="h-10 w-10 text-terracotta" />;
       case 'warning':
-        return <AlertCircle className="h-12 w-12 text-champagne" />;
+        return <AlertCircle className="h-10 w-10 text-amber" />;
       default:
-        return <Info className="h-12 w-12 text-midnight" />;
+        return <Info className="h-10 w-10 text-charcoal" />;
     }
   };
 
   const getConfirmVariant = () => {
     switch (type) {
       case 'danger':
-        return 'outline'; // Or custom red variant if we had one, but let's stick to theme
+      case 'logout':
+        return 'danger';
       case 'warning':
         return 'primary';
       default:
@@ -56,51 +65,54 @@ export const ConfirmationModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title}>
-      <div className="flex flex-col items-center text-center space-y-4 py-4">
-        <div className="p-4 rounded-full bg-pearl shadow-sm">
-          {getIcon()}
+    <Modal isOpen={isOpen} onClose={onClose} title="">
+      <div className="flex flex-col items-center text-center space-y-8 py-4">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-amber opacity-20 blur-2xl rounded-full" />
+          <div className="relative p-6 rounded-full bg-white shadow-xl border border-ivory/50">
+            {getIcon()}
+          </div>
         </div>
         
-        <p className="text-midnight opacity-70 max-w-xs">
-          {message}
-        </p>
+        <div className="space-y-3">
+          <h3 className="font-serif text-3xl text-charcoal tracking-tight">{title}</h3>
+          <p className="text-charcoal/60 max-w-xs leading-relaxed text-sm font-medium">
+            {message}
+          </p>
+        </div>
 
-        {confirmInput && (
-          <div className="w-full space-y-2 text-left">
-            <label className="text-xs font-semibold uppercase tracking-wider text-midnight opacity-50">
-              Type "{confirmInput}" to confirm
+        {finalConfirmInput && (
+          <div className="w-full space-y-3 text-left">
+            <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-charcoal/40 ml-1">
+              Type "{finalConfirmInput}" to confirm
             </label>
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="w-full px-4 py-2 bg-pearl border border-midnight border-opacity-10 rounded-sm focus:outline-none focus:border-champagne transition-colors"
-              placeholder={confirmInput}
+              className="w-full px-6 py-4 bg-ivory/30 border border-charcoal/5 rounded-2xl focus:outline-none focus:border-amber/50 focus:bg-white transition-all text-charcoal font-medium shadow-inner"
+              placeholder={finalConfirmInput}
             />
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full pt-4">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="flex-1"
-            disabled={isLoading}
-          >
-            {cancelText}
-          </Button>
+        <div className="flex flex-col gap-4 w-full pt-4">
           <Button
             variant={getConfirmVariant()}
             onClick={onConfirm}
-            className={cn(
-              "flex-1",
-              type === 'danger' && "bg-dusty-rose text-pearl border-dusty-rose hover:bg-opacity-90"
-            )}
+            className="w-full py-5 rounded-2xl shadow-xl shadow-terracotta/10"
             disabled={isLoading || isConfirmDisabled}
             isLoading={isLoading}
           >
             {confirmText}
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            className="w-full py-5 rounded-2xl text-charcoal/40 hover:text-charcoal hover:bg-ivory/50"
+            disabled={isLoading}
+          >
+            {cancelText}
           </Button>
         </div>
       </div>

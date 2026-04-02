@@ -51,100 +51,106 @@ export const HelpPage = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-8 max-w-5xl mx-auto space-y-8 lg:space-y-12">
-      <div data-aos="fade-down">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-midnight mb-2">Help & Support</h1>
-        <p className="text-sm sm:text-base text-midnight opacity-60 font-light italic">Our concierge team is at your service, 24/7.</p>
-      </div>
-
-      {/* Search Help */}
-      <div className="relative max-w-2xl mx-auto" data-aos="fade-up">
-        <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-midnight opacity-20" />
-        <input 
-          type="text" 
-          placeholder="Search for help, policies, or guides..." 
-          className="w-full bg-white border border-midnight border-opacity-10 rounded-none py-6 pl-16 pr-6 text-lg font-serif text-midnight focus:outline-none focus:border-champagne shadow-xl"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8" data-aos="fade-up">
-        {supportChannels.map((channel) => (
-          <Card key={channel.title} className="p-8 text-center space-y-6 rounded-none shadow-lg border-none group hover:shadow-2xl transition-all duration-500">
-            <div className={cn("h-16 w-16 rounded-full flex items-center justify-center mx-auto text-midnight transition-transform duration-500 group-hover:scale-110", channel.color)}>
-              <channel.icon size={32} />
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-serif text-midnight">{channel.title}</h3>
-              <p className="text-xs text-midnight opacity-50 leading-relaxed">{channel.description}</p>
-            </div>
-            <Button variant="outline" className="w-full rounded-none text-[10px] font-bold uppercase tracking-widest">
-              {channel.action}
-            </Button>
-          </Card>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-        {/* FAQ Section */}
-        <div className="lg:col-span-2 space-y-6" data-aos="fade-right">
-          <h2 className="text-2xl lg:text-3xl font-serif text-midnight mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div 
-                key={index} 
-                className="bg-white border border-midnight border-opacity-5 rounded-none overflow-hidden"
-              >
-                <button 
-                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-pearl transition-colors"
-                >
-                  <span className="text-sm lg:text-base font-serif text-midnight">{faq.question}</span>
-                  {activeFaq === index ? <ChevronUp size={20} className="text-champagne" /> : <ChevronDown size={20} className="text-midnight opacity-20" />}
-                </button>
-                {activeFaq === index && (
-                  <div className="px-6 pb-6 animate-fade-in">
-                    <p className="text-sm text-midnight opacity-60 leading-relaxed italic">
-                      {faq.answer}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+    <div className="bg-pearl min-h-screen py-12 lg:py-20 px-6 sm:px-12">
+      <div className="max-w-screen-2xl mx-auto space-y-12 lg:space-y-20">
+        <div data-aos="fade-down">
+          <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block mb-4">Support Portal</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-midnight leading-[1.1] tracking-tight">Help & Support</h1>
+          <p className="text-lg text-midnight/60 mt-4 max-w-2xl italic">Our concierge team is at your service, 24/7. Excellence is our standard.</p>
         </div>
 
-        {/* Quick Links */}
-        <div className="lg:col-span-1 space-y-6" data-aos="fade-left">
-          <h2 className="text-2xl font-serif text-midnight mb-8">Quick Resources</h2>
-          <div className="space-y-4">
-            {[
-              { label: 'Booking Policies', icon: ShieldCheck },
-              { label: 'Global Destinations', icon: Globe },
-              { label: 'Member Benefits', icon: Star },
-              { label: 'Terms of Service', icon: HelpCircle }
-            ].map((link) => (
-              <button 
-                key={link.label}
-                className="w-full flex items-center justify-between p-4 bg-white border border-midnight border-opacity-5 hover:border-champagne transition-all group"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 bg-pearl flex items-center justify-center text-midnight opacity-40 group-hover:text-champagne group-hover:opacity-100 transition-all">
-                    <link.icon size={18} />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-midnight opacity-70">{link.label}</span>
+        {/* Search Help */}
+        <div className="relative max-w-3xl mx-auto" data-aos="fade-up">
+          <Search className="absolute left-8 top-1/2 -translate-y-1/2 h-6 w-6 text-midnight/20" />
+          <input 
+            type="text" 
+            placeholder="Search for help, policies, or guides..." 
+            className="w-full bg-pearl border border-midnight/10 rounded-[32px] py-8 pl-20 pr-8 text-xl font-serif text-midnight focus:outline-none focus:border-champagne shadow-card transition-all duration-500"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12" data-aos="fade-up">
+          {supportChannels.map((channel) => (
+            <Card key={channel.title} className="p-10 text-center space-y-8 rounded-[40px] shadow-card border-midnight/5 group hover:shadow-hover transition-all duration-700 bg-pearl">
+              <div className={cn("h-20 w-20 rounded-full flex items-center justify-center mx-auto text-midnight transition-all duration-700 group-hover:scale-110 shadow-inner bg-midnight/5", channel.color)}>
+                <channel.icon size={36} className="text-champagne" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-serif text-midnight leading-tight">{channel.title}</h3>
+                <p className="text-sm text-midnight/50 leading-relaxed">{channel.description}</p>
+              </div>
+              <Button variant="outline" className="w-full rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] py-4 border-midnight/10 hover:border-champagne transition-all">
+                {channel.action}
+              </Button>
+            </Card>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          {/* FAQ Section */}
+          <div className="lg:col-span-8 space-y-10" data-aos="fade-right">
+            <h2 className="text-3xl lg:text-4xl font-serif text-midnight leading-tight">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {faqs.map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="bg-pearl border border-midnight/5 rounded-[24px] overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+                >
+                  <button 
+                    onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                    className="w-full flex items-center justify-between p-8 text-left hover:bg-midnight/5 transition-colors"
+                  >
+                    <span className="text-lg lg:text-xl font-serif text-midnight leading-tight">{faq.question}</span>
+                    {activeFaq === index ? <ChevronUp size={24} className="text-champagne" /> : <ChevronDown size={24} className="text-midnight/20" />}
+                  </button>
+                  {activeFaq === index && (
+                    <div className="px-8 pb-8 animate-fade-in">
+                      <p className="text-base text-midnight/60 leading-relaxed italic border-t border-midnight/5 pt-6 mt-2">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
                 </div>
-                <ChevronRight size={16} className="text-midnight opacity-20 group-hover:text-champagne group-hover:opacity-100 transition-all" />
-              </button>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <Card className="p-8 bg-midnight text-pearl rounded-none shadow-xl border-none">
-            <h3 className="text-xl font-serif text-champagne mb-4">Still need help?</h3>
-            <p className="text-xs opacity-60 leading-relaxed mb-8">Our luxury travel specialists are standing by to assist you with any request, no matter how complex.</p>
-            <Button className="w-full bg-white text-midnight hover:bg-champagne transition-all rounded-none text-[10px] font-bold uppercase tracking-widest">
-              Contact Concierge
-            </Button>
-          </Card>
+          {/* Quick Links */}
+          <div className="lg:col-span-4 space-y-12" data-aos="fade-left">
+            <div className="space-y-8">
+              <h2 className="text-2xl font-serif text-midnight leading-tight">Quick Resources</h2>
+              <div className="space-y-4">
+                {[
+                  { label: 'Booking Policies', icon: ShieldCheck },
+                  { label: 'Global Destinations', icon: Globe },
+                  { label: 'Member Benefits', icon: Star },
+                  { label: 'Terms of Service', icon: HelpCircle }
+                ].map((link) => (
+                  <button 
+                    key={link.label}
+                    className="w-full flex items-center justify-between p-5 bg-pearl border border-midnight/5 hover:border-champagne/50 transition-all group rounded-2xl shadow-sm hover:shadow-md"
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className="h-12 w-12 rounded-xl bg-midnight/5 flex items-center justify-center text-midnight/40 group-hover:text-champagne group-hover:bg-midnight transition-all duration-500 shadow-inner">
+                        <link.icon size={20} />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-[0.2em] text-midnight/70 group-hover:text-midnight transition-colors">{link.label}</span>
+                    </div>
+                    <ChevronRight size={18} className="text-midnight/20 group-hover:text-champagne transition-all" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <Card className="p-10 bg-midnight text-pearl rounded-[40px] shadow-2xl border-none relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-champagne opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+              <h3 className="text-2xl font-serif text-champagne mb-4 leading-tight">Still need help?</h3>
+              <p className="text-sm opacity-60 leading-relaxed mb-10">Our luxury travel specialists are standing by to assist you with any request, no matter how complex.</p>
+              <Button className="w-full bg-pearl text-midnight hover:bg-champagne transition-all rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] py-5 shadow-xl shadow-midnight/20">
+                Contact Concierge
+              </Button>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

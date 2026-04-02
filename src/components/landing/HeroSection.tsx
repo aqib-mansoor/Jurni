@@ -9,104 +9,64 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
-    <section className="relative h-screen w-full bg-midnight z-20">
-      {/* Background Video/Image */}
+    <section className="relative h-screen w-full bg-charcoal z-20 overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          src="https://assets.mixkit.co/videos/preview/mixkit-luxury-resort-with-overwater-villas-at-sunset-41130-large.mp4"
-          className="h-full w-full object-cover opacity-60 scale-105 animate-slow-zoom"
-          poster="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1920&auto=format&fit=crop"
+        <img 
+          src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1920&auto=format&fit=crop"
+          alt="Maldives Overwater Villa"
+          className="h-full w-full object-cover scale-105 animate-slow-zoom"
+          referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/80 via-midnight/40 to-midnight/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-charcoal/20 to-charcoal/80" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-40 sm:pt-48 lg:pt-64 pb-32">
-        <div className="max-w-screen-2xl mx-auto w-full flex flex-col items-center text-center">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 pt-32 sm:pt-40">
+        <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-12">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8 bg-pearl/5 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full border border-pearl/10 backdrop-blur-sm"
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex items-center gap-4 bg-white/5 px-8 py-3 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl"
           >
-            <Star size={12} className="text-champagne fill-current sm:w-[14px] sm:h-[14px]" />
-            <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold text-pearl/70">
+            <Star size={16} className="text-amber fill-current animate-pulse" />
+            <span className="text-[11px] uppercase tracking-[0.5em] font-bold text-white/90">
               The Pinnacle of Luxury Travel
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl sm:text-7xl lg:text-[8rem] font-serif text-pearl leading-[1.1] sm:leading-[0.85] tracking-tighter mb-8 sm:mb-12"
+            transition={{ delay: 0.3, duration: 1.2, ease: "easeOut" }}
+            className="text-[36px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-serif text-pearl leading-[1.05] tracking-tight drop-shadow-2xl max-w-5xl text-balance"
           >
             Journeys That Become <br />
-            <span className="text-champagne italic font-light relative">
-              Masterpieces
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: '100%' }}
-                transition={{ delay: 1, duration: 1.5 }}
-                className="absolute -bottom-2 sm:-bottom-4 left-0 h-[1px] sm:h-[2px] bg-gradient-to-r from-transparent via-champagne to-transparent"
-              />
-            </span>
+            <span className="text-champagne italic font-light">Masterpieces</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-base sm:text-xl lg:text-2xl text-pearl/60 font-light max-w-3xl mb-10 sm:mb-16 leading-relaxed px-4 sm:px-0"
+            transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
+            className="text-xs sm:text-sm md:text-base lg:text-lg text-pearl/80 font-medium max-w-2xl mb-12 leading-relaxed tracking-wide uppercase"
           >
-            Crafting extraordinary experiences for the world's most discerning travelers. Your legacy begins with a single <span className="text-champagne italic">Jurni</span>.
+            Crafting extraordinary experiences for the world's most discerning travelers. <br className="hidden md:block" /> Your legacy begins with a single <span className="text-champagne italic font-light">Jurni</span>.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col items-center w-full"
+            transition={{ delay: 0.9, duration: 1, ease: "easeOut" }}
+            className="w-full max-w-5xl flex justify-center"
           >
-            <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-16 sm:mb-24 w-full justify-center">
-              <Button 
-                size="lg" 
-                className="w-full sm:w-auto px-10 py-5 sm:px-12 sm:py-8 bg-champagne text-midnight hover:bg-pearl hover:text-midnight transition-all duration-500 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs rounded-none shadow-[0_20px_50px_rgba(247,215,148,0.3)] group"
-                onClick={onAuthClick}
-              >
-                Start Your Journey <ArrowRight size={14} className="inline-block ml-2 group-hover:translate-x-2 transition-transform sm:w-[16px] sm:h-[16px]" />
-              </Button>
-            </div>
-
-            {/* Integrated Search Bar */}
-            <div className="w-full max-w-5xl mx-auto mb-16 sm:mb-24">
-              <SearchBar />
-            </div>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="grid grid-cols-3 gap-4 sm:gap-12 md:gap-24 border-t border-pearl/10 pt-8 sm:pt-12 w-full max-w-5xl"
-          >
-            <div className="flex flex-col items-center gap-1 sm:gap-2">
-              <span className="text-xl sm:text-3xl font-serif text-pearl tracking-tight">500+</span>
-              <span className="text-[7px] sm:text-[10px] uppercase tracking-widest text-pearl/40 font-bold">Properties</span>
-            </div>
-            <div className="flex flex-col items-center gap-1 sm:gap-2">
-              <span className="text-xl sm:text-3xl font-serif text-pearl tracking-tight">24/7</span>
-              <span className="text-[7px] sm:text-[10px] uppercase tracking-widest text-pearl/40 font-bold">Concierge</span>
-            </div>
-            <div className="flex flex-col items-center gap-1 sm:gap-2">
-              <span className="text-xl sm:text-3xl font-serif text-pearl tracking-tight">10k+</span>
-              <span className="text-[7px] sm:text-[10px] uppercase tracking-widest text-pearl/40 font-bold">Travelers</span>
-            </div>
+            <Button 
+              onClick={onAuthClick}
+              className="bg-champagne text-midnight px-16 py-6 rounded-2xl text-[12px] font-bold uppercase tracking-[0.4em] shadow-2xl shadow-champagne/20 hover:scale-105 transition-all"
+            >
+              Begin Your Journey
+            </Button>
           </motion.div>
         </div>
       </div>
@@ -118,8 +78,8 @@ export const HeroSection = ({ onAuthClick }: { onAuthClick: () => void }) => {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
       >
-        <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-pearl/30 rotate-90 mb-8">Scroll</span>
-        <div className="h-16 w-[1px] bg-gradient-to-b from-champagne to-transparent" />
+        <div className="h-12 w-[1px] bg-gradient-to-b from-amber to-transparent" />
+        <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-white/40">Scroll</span>
       </motion.div>
 
       {/* Video Modal */}

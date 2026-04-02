@@ -27,17 +27,16 @@ export const useJurniAuth = () => {
           if (userDoc.exists()) {
             const userData = userDoc.data();
             setUser({ 
-              id: firebaseUser.uid, 
+              uid: firebaseUser.uid, 
               ...userData,
               wishlist: userData.wishlist || []
             } as User);
           } else {
             const newUser: User = {
-              id: firebaseUser.uid,
               uid: firebaseUser.uid,
               displayName: firebaseUser.displayName || 'Anonymous',
               email: firebaseUser.email || '',
-              avatar: firebaseUser.photoURL || undefined,
+              photoURL: firebaseUser.photoURL || undefined,
               memberSince: new Date().toISOString(),
               role: 'user',
               wishlist: []
@@ -78,7 +77,6 @@ export const useJurniAuth = () => {
     await updateProfile(firebaseUser, { displayName: name });
     
     const newUser: User = {
-      id: firebaseUser.uid,
       uid: firebaseUser.uid,
       displayName: name,
       email: email,
@@ -105,14 +103,14 @@ export const useJurniAuth = () => {
       : [...user.wishlist, listingId];
 
     try {
-      await setDoc(doc(db, 'users', user.id), { ...user, wishlist: newWishlist });
+      await setDoc(doc(db, 'users', user.uid), { ...user, wishlist: newWishlist });
       setUser({ ...user, wishlist: newWishlist });
       toast.success(newWishlist.includes(listingId) ? 'Added to wishlist' : 'Removed from wishlist');
     } catch (err) {
       console.error(err);
       if (err instanceof Error && err.message.includes('permission')) {
         try {
-          handleFirestoreError(err, OperationType.UPDATE, `users/${user.id}`);
+          handleFirestoreError(err, OperationType.UPDATE, `users/${user.uid}`);
         } catch (e) {
           // Error already logged
         }
@@ -121,5 +119,26 @@ export const useJurniAuth = () => {
     }
   };
 
-  return { user, loading, login, logout, toggleWishlist, signInWithEmail, signUpWithEmail };
+  const updateUser = async (data: Partial<User>) => {
+    if (!user) return;
+    try {
+      const updatedUser = { ...user, ...data };
+      await setDoc(doc(db, 'users', user.uid), updatedUser);
+      setUser(updatedUser);
+      toast.success('Profile updated successfully');
+    } catch (err) {
+      console.error(err);
+      if (err instanceof Error && err.message.includes('permission')) {
+        try {
+          handleFirestoreError(err, OperationType.UPDATE, `users/${user.uid}`);
+        } catch (e) {
+          // Error already logged
+        }
+      }
+      toast.error('Failed to update profile');
+      throw err;
+    }
+  };
+
+  return { user, loading, login, logout, toggleWishlist, updateUser, signInWithEmail, signUpWithEmail };
 };

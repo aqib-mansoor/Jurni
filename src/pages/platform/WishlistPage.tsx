@@ -49,15 +49,16 @@ export const WishlistPage = () => {
   if (loading) return <LoadingSpinner fullScreen />;
 
   return (
-    <div className="bg-pearl min-h-screen py-8 lg:py-12 px-4 sm:px-8">
+    <div className="bg-pearl min-h-screen py-12 lg:py-20 px-6 sm:px-12">
       <div className="max-w-screen-2xl mx-auto">
-        <div className="mb-8 lg:mb-12" data-aos="fade-down">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-midnight mb-2 lg:mb-4">Your Wishlist</h1>
-          <p className="text-sm sm:text-base lg:text-lg text-midnight opacity-60">Curated experiences waiting for your arrival.</p>
+        <div className="mb-12 lg:mb-16" data-aos="fade-down">
+          <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block mb-4">Your Collection</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-midnight leading-[1.1] tracking-tight">Your Wishlist</h1>
+          <p className="text-lg text-midnight/60 mt-4 max-w-2xl">Curated experiences waiting for your arrival. Handpicked by you, for your next extraordinary journey.</p>
         </div>
 
         {wishlistItems.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
             <AnimatePresence mode="popLayout">
               {wishlistItems.map((item) => (
                 <motion.div
@@ -69,42 +70,47 @@ export const WishlistPage = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <Card 
-                    className="group overflow-hidden cursor-pointer bg-white border-midnight border-opacity-5 hover:shadow-2xl transition-all duration-500 rounded-none"
+                    className="group overflow-hidden cursor-pointer bg-pearl border-midnight/5 hover:shadow-hover transition-all duration-700 rounded-[32px] shadow-card"
                     onClick={() => navigate(`/platform/listing/${item.id}`)}
                   >
-                    <div className="relative h-56 sm:h-64 overflow-hidden">
+                    <div className="relative aspect-[4/3] overflow-hidden">
                       <img 
                         src={item.images[0]} 
                         alt={item.title} 
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-40" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent opacity-60" />
                       <button 
                         onClick={(e) => handleRemove(e, item.id)}
-                        className="absolute top-3 right-3 h-9 w-9 lg:h-10 lg:w-10 rounded-full bg-pearl bg-opacity-20 backdrop-blur-md text-rose flex items-center justify-center hover:bg-rose hover:text-pearl transition-all z-10"
+                        className="absolute top-4 right-4 h-10 w-10 rounded-full bg-pearl/20 backdrop-blur-md text-rose flex items-center justify-center hover:bg-rose hover:text-pearl transition-all z-10 shadow-xl"
                       >
-                        <Heart size={16} className="fill-current lg:size-[18px]" />
+                        <Heart size={18} className="fill-current" />
                       </button>
-                      <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-pearl">
-                        <Star size={12} className="text-champagne fill-current lg:size-3.5" />
-                        <span className="text-[10px] lg:text-xs font-bold">{item.rating}</span>
+                      <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-midnight/40 backdrop-blur-md px-3 py-1.5 rounded-full text-pearl border border-pearl/20 shadow-xl">
+                        <Star size={14} className="text-champagne fill-current" />
+                        <span className="text-xs font-bold">{item.rating}</span>
                       </div>
                     </div>
 
-                    <div className="p-5 lg:p-6">
-                      <div className="flex justify-between items-start mb-1 lg:mb-2">
-                        <h3 className="text-lg lg:text-xl font-serif text-midnight group-hover:text-champagne transition-colors">{item.title}</h3>
-                        <span className="text-base lg:text-lg font-bold text-midnight">{formatPrice(item.price)}</span>
+                    <div className="p-8">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-xl lg:text-2xl font-serif text-midnight group-hover:text-champagne transition-colors leading-tight">{item.title}</h3>
                       </div>
-                      <div className="flex items-center gap-1 text-midnight opacity-50 text-xs lg:text-sm mb-4 lg:mb-6">
-                        <MapPin size={12} className="lg:size-3.5" />
+                      <div className="flex items-center gap-2 text-midnight/50 text-sm mb-6">
+                        <MapPin size={14} />
                         {item.location}
                       </div>
 
-                      <Button className="w-full group/btn rounded-none text-xs lg:text-sm py-3 lg:py-4">
-                        Book Experience
-                      </Button>
+                      <div className="flex items-center justify-between pt-6 border-t border-midnight/5">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-midnight/40">Price</span>
+                          <span className="text-lg font-bold text-midnight">{formatPrice(item.price)}</span>
+                        </div>
+                        <Button className="rounded-xl px-8 py-3 text-xs uppercase tracking-widest font-bold shadow-xl shadow-champagne/20">
+                          Book Now
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
@@ -112,16 +118,19 @@ export const WishlistPage = () => {
             </AnimatePresence>
           </div>
         ) : (
-          <div className="text-center py-16 lg:py-24 bg-white rounded-none border border-dashed border-midnight border-opacity-10" data-aos="fade-up">
-            <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-full bg-pearl mx-auto flex items-center justify-center text-midnight opacity-20 mb-4 lg:mb-6">
-              <Heart size={32} className="lg:size-10" />
+          <div className="text-center py-24 lg:py-32 bg-pearl rounded-[48px] border border-dashed border-midnight/10 shadow-card" data-aos="fade-up">
+            <div className="h-20 w-20 lg:h-24 lg:w-24 rounded-full bg-midnight/5 mx-auto flex items-center justify-center text-midnight/20 mb-8">
+              <Heart size={40} />
             </div>
-            <h2 className="text-2xl lg:text-3xl font-serif text-midnight mb-2 lg:mb-4">Your wishlist is empty</h2>
-            <p className="text-sm lg:text-base text-midnight opacity-50 mb-6 lg:mb-8 max-w-xs sm:max-w-md mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-serif text-midnight mb-4 leading-tight">Your wishlist is empty</h2>
+            <p className="text-lg text-midnight/50 mb-10 max-w-md mx-auto leading-relaxed">
               Explore our handpicked luxury experiences and save your favorites here for later.
             </p>
-            <Button onClick={() => navigate('/platform/explore')} className="rounded-none">
-              Start Exploring
+            <Button 
+              onClick={() => navigate('/platform/explore')} 
+              className="rounded-2xl px-12 py-6 text-sm uppercase tracking-[0.3em] font-bold shadow-2xl shadow-champagne/20"
+            >
+              Explore Luxury Experiences
             </Button>
           </div>
         )}

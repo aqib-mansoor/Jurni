@@ -14,53 +14,54 @@ const destinations = [
 
 export const DestinationShowcase = () => {
   return (
-    <section id="destinations" className="py-20 sm:py-32 px-4 sm:px-8 bg-pearl overflow-hidden">
+    <section id="destinations" className="py-24 lg:py-40 px-6 sm:px-12 bg-pearl overflow-hidden">
       <div className="max-w-screen-2xl mx-auto">
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-16 sm:mb-24 gap-8 sm:gap-12" data-aos="fade-up">
-          <div className="max-w-2xl">
-            <span className="text-rose text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold mb-4 sm:mb-6 block">Destinations</span>
-            <h2 className="text-4xl sm:text-6xl lg:text-8xl font-serif text-midnight leading-[1.1] sm:leading-[0.9] tracking-tighter">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 lg:mb-32 gap-12 lg:gap-20" data-aos="fade-up">
+          <div className="max-w-3xl">
+            <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block mb-6">Global Destinations</span>
+            <h2 className="text-5xl lg:text-8xl font-serif text-midnight leading-[1.1] tracking-tight">
               The World's <br />
               <span className="text-champagne italic font-light">Most Exclusive</span>
             </h2>
           </div>
-          <p className="text-lg sm:text-xl text-midnight/60 font-light max-w-md lg:text-right leading-relaxed italic">
+          <p className="text-xl lg:text-2xl text-midnight/60 font-light max-w-lg lg:text-right leading-relaxed italic border-l-2 lg:border-l-0 lg:border-r-2 border-champagne/30 pl-6 lg:pl-0 lg:pr-6">
             "Travel is the only thing you buy that makes you richer." — Anonymous
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {destinations.map((dest, index) => (
             <motion.div
               key={dest.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
+              transition={{ delay: index * 0.15, duration: 1, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="group relative h-[400px] sm:h-[500px] overflow-hidden cursor-pointer"
+              className="group relative aspect-[4/5] overflow-hidden cursor-pointer rounded-[40px] shadow-card hover:shadow-hover transition-all duration-700"
             >
               <img 
                 src={dest.image} 
                 alt={dest.name} 
                 className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
               
-              <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10">
-                <p className="text-champagne text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] font-bold mb-1 sm:mb-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+              <div className="absolute bottom-10 left-10 right-10 lg:bottom-12 lg:left-12 lg:right-12">
+                <p className="text-champagne text-[10px] font-bold uppercase tracking-[0.3em] mb-3 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-700">
                   {dest.properties}
                 </p>
-                <h3 className="text-3xl sm:text-4xl font-serif text-pearl tracking-tight mb-4 sm:mb-6">
+                <h3 className="text-4xl lg:text-5xl font-serif text-pearl tracking-tight mb-6 lg:mb-8 leading-tight">
                   {dest.name}
                 </h3>
                 
-                <div className="h-[1px] w-0 group-hover:w-full bg-champagne transition-all duration-700 mb-4 sm:mb-6" />
+                <div className="h-[1px] w-0 group-hover:w-full bg-champagne transition-all duration-1000 mb-8 lg:mb-10 shadow-[0_0_10px_rgba(247,215,148,0.5)]" />
                 
                 <Button 
                   size="sm" 
-                  className="bg-champagne text-midnight border-none rounded-none opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 flex items-center gap-2 text-[10px] sm:text-xs px-6 py-3 sm:px-8 sm:py-4"
+                  className="bg-champagne text-midnight border-none rounded-2xl opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-700 delay-150 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] px-10 py-5 shadow-2xl shadow-midnight/20"
                 >
-                  Explore <ArrowRight size={14} />
+                  Explore <ArrowRight size={16} />
                 </Button>
               </div>
             </motion.div>

@@ -1,11 +1,10 @@
 export type UserRole = 'user' | 'admin';
 
 export interface User {
-  id: string;
   uid: string;
   displayName: string;
   email: string;
-  avatar?: string;
+  photoURL?: string;
   memberSince: string;
   role: UserRole;
   wishlist: string[];

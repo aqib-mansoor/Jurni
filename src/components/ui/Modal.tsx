@@ -24,7 +24,7 @@ export const Modal = ({ isOpen, onClose, title, children, className, maxWidth = 
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="fixed inset-0 bg-midnight bg-opacity-75 backdrop-blur-sm" />
+        <div className="fixed inset-0 bg-charcoal/40 backdrop-blur-md" />
       </Transition.Child>
 
       <div className="fixed inset-0 overflow-y-auto">
@@ -32,27 +32,27 @@ export const Modal = ({ isOpen, onClose, title, children, className, maxWidth = 
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95 sm:translate-y-0 translate-y-full"
+            enterFrom="opacity-0 scale-95 translate-y-full sm:translate-y-0"
             enterTo="opacity-100 scale-100 translate-y-0"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100 translate-y-0"
-            leaveTo="opacity-0 scale-95 sm:translate-y-0 translate-y-full"
+            leaveTo="opacity-0 scale-95 translate-y-full sm:translate-y-0"
           >
-            <Dialog.Panel className={cn('w-full h-full sm:h-auto min-h-screen sm:min-h-0 transform overflow-hidden rounded-none sm:rounded-2xl bg-pearl text-left align-middle shadow-2xl transition-all', maxWidth, className)}>
+            <Dialog.Panel className={cn('w-full h-full sm:h-auto min-h-screen sm:min-h-0 transform overflow-hidden rounded-none sm:rounded-[24px] bg-white text-left align-middle shadow-modal transition-all', maxWidth, className)}>
               {title && (
-                <div className="flex items-center justify-between p-6 sm:p-10 pb-0">
-                  <Dialog.Title as="h3" className="text-2xl sm:text-4xl font-serif text-midnight leading-tight">{title}</Dialog.Title>
-                  <button onClick={onClose} className="group p-2 -mr-2 text-midnight opacity-30 hover:opacity-100 transition-all duration-300">
+                <div className="flex items-center justify-between p-8 sm:p-10 pb-0">
+                  <Dialog.Title as="h3" className="text-3xl sm:text-4xl font-serif text-charcoal leading-tight tracking-tight">{title}</Dialog.Title>
+                  <button onClick={onClose} className="group p-2 -mr-2 text-charcoal opacity-30 hover:opacity-100 transition-all duration-300">
                     <XMarkIcon className="h-8 w-8 transition-transform duration-500 group-hover:rotate-90" />
                   </button>
                 </div>
               )}
               {!title && (
-                <button onClick={onClose} className="group absolute top-8 right-8 z-50 p-3 text-midnight opacity-30 hover:opacity-100 transition-all duration-300 bg-white/40 backdrop-blur-xl rounded-full shadow-sm border border-white/20">
-                  <XMarkIcon className="h-6 w-6 transition-transform duration-500 group-hover:rotate-90" />
+                <button onClick={onClose} className="group absolute top-6 right-6 sm:top-8 sm:right-8 z-50 p-2 sm:p-3 text-charcoal opacity-30 hover:opacity-100 transition-all duration-300 bg-ivory/80 backdrop-blur-xl rounded-full shadow-sm border border-white/20">
+                  <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-500 group-hover:rotate-90" />
                 </button>
               )}
-              <div className="p-6 sm:p-8">
+              <div className="p-8 sm:p-12">
                 {children}
               </div>
             </Dialog.Panel>

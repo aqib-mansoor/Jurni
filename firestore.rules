@@ -73,7 +73,8 @@ service cloud.firestore {
              data.uid == request.auth.uid &&
              isValidEmail(data.email) &&
              data.role in ['user', 'admin'] &&
-             (!('wishlist' in data) || data.wishlist is list);
+             (!('wishlist' in data) || data.wishlist is list) &&
+             (!('photoURL' in data) || isValidUrl(data.photoURL));
     }
 
     function isValidBooking(data) {
@@ -98,7 +99,8 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();
       allow create: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == 'user';
-      allow update: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == resource.data.role;
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && 
+                    (!('role' in resource.data) || request.resource.data.role == resource.data.role);
       allow delete: if isOwner(userId) || isAdmin();
     }
 

@@ -1,94 +1,109 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, ChevronDown, ChevronUp } from 'lucide-react';
-
-const faqs = [
-  {
-    question: "How do I book a luxury experience with Jurni?",
-    answer: "Booking with Jurni is a curated process. You can explore our collection online and submit an inquiry. One of our dedicated travel experts will then contact you to personalize every detail of your journey before finalizing the booking."
-  },
-  {
-    question: "What makes Jurni different from other travel platforms?",
-    answer: "We focus exclusively on ultra-luxury, hand-picked properties and experiences. Every listing is vetted by our experts, and every traveler is assigned a personal concierge available 24/7 to ensure a seamless journey."
-  },
-  {
-    question: "Are the prices on the website final?",
-    answer: "Prices shown are starting rates. Because we specialize in highly personalized travel, the final price may vary based on your specific requests, seasonal availability, and additional concierge services."
-  },
-  {
-    question: "What is your cancellation policy?",
-    answer: "Cancellation policies vary by property and experience. However, we work closely with our partners to offer the most flexible terms possible for our elite members. Detailed terms are provided during the inquiry process."
-  },
-  {
-    question: "Can Jurni handle private jet and yacht charters?",
-    answer: "Absolutely. Our concierge team has exclusive access to a global network of private jet operators and superyacht charters, allowing us to manage your entire journey from door to door."
-  },
-  {
-    question: "Do you offer corporate travel services?",
-    answer: "Yes, we provide bespoke corporate travel management for executives and high-performance teams, focusing on privacy, efficiency, and luxury."
-  },
-  {
-    question: "How do I become a Jurni Elite member?",
-    answer: "Membership is currently by invitation or application. Elite members enjoy exclusive perks, priority access to new properties, and enhanced concierge benefits."
-  },
-  {
-    question: "Is my personal data secure with Jurni?",
-    answer: "We employ industry-leading encryption and privacy protocols to ensure your data and travel details remain strictly confidential and secure."
-  }
-];
+import { motion, AnimatePresence } from 'motion/react';
+import { Plus, Minus, HelpCircle, ChevronRight } from 'lucide-react';
+import { cn } from '../../lib/utils';
 
 export const FAQSection = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "What makes Jurni different from other luxury travel platforms?",
+      answer: "Jurni is built on the philosophy of 'Masterpiece Journeys.' We don't just book trips; we curate experiences. Our AI Concierge, combined with human expertise, ensures every detail is personalized to your unique taste."
+    },
+    {
+      question: "How do I become a Platinum member?",
+      answer: "Platinum status is awarded to our most frequent travelers who have accumulated 50,000 loyalty points. Benefits include private jet upgrades, personal travel curators, and exclusive access to invite-only events."
+    },
+    {
+      question: "Is my data secure with Jurni?",
+      answer: "Absolutely. We use military-grade encryption and strictly adhere to global privacy standards. Your personal information and travel history are kept confidential and secure at all times."
+    },
+    {
+      question: "Can I book private jets and luxury trains through Jurni?",
+      answer: "Yes, Jurni offers a comprehensive range of luxury travel options, including private jets, luxury trains, and the world's most exclusive hotels and resorts."
+    }
+  ];
 
   return (
-    <section className="py-32 px-8 bg-pearl overflow-hidden relative">
-      <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center mb-24" data-aos="fade-up">
-          <span className="text-rose text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Common Inquiries</span>
-          <h2 className="text-6xl lg:text-8xl font-serif text-midnight leading-[0.9] tracking-tighter">
-            Frequently <br />
-            <span className="text-champagne italic font-light">Asked</span>
+    <section id="faq" className="py-24 lg:py-32 bg-pearl relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-champagne/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-midnight/5 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl" />
+
+      <div className="max-w-4xl mx-auto px-6 lg:px-12">
+        <div className="text-center space-y-6 mb-20" data-aos="fade-up">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-1 w-12 bg-champagne rounded-full" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-midnight/40">Curated Answers</span>
+            <div className="h-1 w-12 bg-champagne rounded-full" />
+          </div>
+          <h2 className="text-4xl lg:text-6xl font-serif text-midnight tracking-tight leading-tight">
+            Frequently Asked <br />
+            <span className="text-midnight/40 italic">Questions</span>
           </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              viewport={{ once: true }}
-              className="border-b border-midnight/10 overflow-hidden"
+              transition={{ delay: index * 0.1 }}
+              className={cn(
+                "bg-white rounded-[32px] border border-midnight/5 shadow-card overflow-hidden transition-all duration-500",
+                openIndex === index ? "shadow-2xl shadow-midnight/5" : "hover:shadow-xl"
+              )}
             >
               <button
-                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full py-8 flex items-center justify-between text-left group"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full p-8 flex items-center justify-between text-left group"
               >
-                <span className={`text-xl font-serif transition-colors duration-500 ${activeIndex === index ? 'text-champagne' : 'text-midnight group-hover:text-champagne'}`}>
-                  {faq.question}
-                </span>
-                <div className={`h-10 w-10 rounded-full border border-midnight/10 flex items-center justify-center transition-all duration-500 ${activeIndex === index ? 'bg-champagne border-champagne text-midnight rotate-180' : 'text-midnight group-hover:border-champagne group-hover:text-champagne'}`}>
-                  {activeIndex === index ? <Minus size={18} /> : <Plus size={18} />}
+                <div className="flex items-center gap-6">
+                  <div className={cn(
+                    "h-12 w-12 rounded-2xl flex items-center justify-center transition-all duration-500",
+                    openIndex === index ? "bg-midnight text-champagne" : "bg-midnight/[0.03] text-midnight/20 group-hover:bg-midnight/10"
+                  )}>
+                    <HelpCircle size={24} />
+                  </div>
+                  <h3 className="text-lg font-serif text-midnight group-hover:text-champagne transition-colors duration-500">{faq.question}</h3>
+                </div>
+                <div className={cn(
+                  "h-8 w-8 rounded-full flex items-center justify-center transition-all duration-500",
+                  openIndex === index ? "bg-champagne text-midnight rotate-180" : "bg-midnight/5 text-midnight/20"
+                )}>
+                  {openIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                 </div>
               </button>
-              
+
               <AnimatePresence>
-                {activeIndex === index && (
+                {openIndex === index && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
-                    <div className="pb-10 text-midnight/60 leading-relaxed font-light max-w-3xl">
-                      {faq.answer}
+                    <div className="px-8 pb-8 pl-[calc(2rem+3rem)]">
+                      <p className="text-sm text-midnight/50 font-light leading-relaxed max-w-2xl">
+                        {faq.answer}
+                      </p>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
           ))}
+        </div>
+
+        {/* Final CTA */}
+        <div className="mt-24 text-center space-y-8" data-aos="fade-up">
+          <p className="text-sm text-midnight/40 font-light tracking-wide">Still have questions? Our curators are here to help.</p>
+          <button className="flex items-center gap-3 mx-auto px-8 py-4 bg-midnight text-champagne rounded-2xl text-[10px] font-bold uppercase tracking-widest shadow-2xl shadow-midnight/20 hover:scale-105 transition-all group">
+            Speak with our Concierge
+            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </div>
     </section>

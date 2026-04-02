@@ -32,73 +32,74 @@ const experiences = [
 
 export const ExperiencePreview = () => {
   return (
-    <section id="experiences" className="py-20 sm:py-32 px-4 sm:px-8 bg-midnight text-pearl overflow-hidden relative">
+    <section id="experiences" className="py-24 lg:py-40 px-6 sm:px-12 bg-midnight text-pearl overflow-hidden relative">
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-champagne/5 to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-champagne/[0.03] to-transparent pointer-events-none" />
       
       <div className="max-w-screen-2xl mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row items-start justify-between mb-16 sm:mb-24 gap-8 sm:gap-12" data-aos="fade-up">
-          <div className="max-w-2xl">
-            <span className="text-champagne text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] font-bold mb-4 sm:mb-6 block">Signature Experiences</span>
-            <h2 className="text-4xl sm:text-6xl lg:text-8xl font-serif text-pearl leading-[1.1] sm:leading-[0.9] tracking-tighter">
+        <div className="flex flex-col lg:flex-row items-start justify-between mb-20 lg:mb-32 gap-12 lg:gap-20" data-aos="fade-up">
+          <div className="max-w-3xl">
+            <span className="text-rose font-bold text-[10px] tracking-[0.5em] uppercase block mb-6">Signature Experiences</span>
+            <h2 className="text-5xl lg:text-8xl font-serif text-pearl leading-[1.1] tracking-tight">
               Curated <br />
               <span className="text-champagne italic font-light">Masterpieces</span>
             </h2>
           </div>
-          <div className="max-w-md lg:mt-12">
-            <p className="text-lg sm:text-xl text-pearl/60 font-light leading-relaxed">
-              We don't just book travel; we curate legacies. Every detail is meticulously planned to ensure your journey is nothing short of a masterpiece.
+          <div className="max-w-lg lg:mt-24">
+            <p className="text-xl lg:text-2xl text-pearl/60 font-light leading-relaxed italic">
+              "We don't just book travel; we curate legacies. Every detail is meticulously planned to ensure your journey is nothing short of a masterpiece."
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
+              transition={{ delay: index * 0.15, duration: 1, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="group bg-pearl/5 border border-pearl/10 rounded-none overflow-hidden hover:border-champagne/30 transition-all duration-500"
+              className="group bg-pearl/[0.02] border border-pearl/10 rounded-[40px] overflow-hidden hover:border-champagne/30 transition-all duration-700 shadow-2xl shadow-midnight/50"
             >
-              <div className="relative h-[250px] sm:h-[300px] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <img 
                   src={exp.image} 
                   alt={exp.title} 
                   className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                  referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-champagne text-midnight px-3 py-1 sm:px-4 sm:py-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded-full">
+                <div className="absolute top-6 right-6 bg-champagne text-midnight px-5 py-2 text-[10px] font-bold uppercase tracking-[0.2em] rounded-full shadow-xl">
                   {exp.price}
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-transparent to-transparent opacity-60" />
                 
-                <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex flex-wrap gap-2">
+                <div className="absolute bottom-6 left-6 flex flex-wrap gap-3">
                   {exp.tags.map(tag => (
-                    <span key={tag} className="text-[8px] sm:text-[9px] uppercase tracking-widest font-bold text-pearl/70 bg-pearl/10 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-sm">
+                    <span key={tag} className="text-[9px] uppercase tracking-[0.2em] font-bold text-pearl/70 bg-pearl/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-pearl/10">
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
               
-              <div className="p-6 sm:p-10">
-                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  <div className="h-10 w-10 sm:h-12 sm:w-12 bg-champagne/10 text-champagne rounded-full flex items-center justify-center group-hover:bg-champagne group-hover:text-midnight transition-colors duration-500">
-                    <exp.icon size={20} strokeWidth={1.5} className="sm:w-[24px] sm:h-[24px]" />
+              <div className="p-10 lg:p-12">
+                <div className="flex items-center gap-6 mb-8 lg:mb-10">
+                  <div className="h-14 w-14 lg:h-16 lg:w-16 bg-champagne/10 text-champagne rounded-2xl flex items-center justify-center group-hover:bg-champagne group-hover:text-midnight transition-all duration-700 shadow-inner">
+                    <exp.icon size={28} strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-serif text-pearl tracking-tight">{exp.title}</h3>
+                  <h3 className="text-2xl lg:text-3xl font-serif text-pearl tracking-tight leading-tight">{exp.title}</h3>
                 </div>
                 
-                <p className="text-pearl/50 text-xs sm:text-sm leading-relaxed mb-8 sm:mb-10 font-light group-hover:text-pearl/80 transition-colors">
+                <p className="text-pearl/40 text-sm lg:text-base leading-relaxed mb-10 lg:mb-12 font-light group-hover:text-pearl/80 transition-colors duration-500">
                   {exp.description}
                 </p>
                 
                 <Button 
                   variant="outline" 
-                  className="w-full border-pearl/20 text-pearl hover:bg-champagne hover:text-midnight hover:border-champagne transition-all duration-500 rounded-none uppercase tracking-[0.2em] text-[10px] font-bold py-4 sm:py-6 flex items-center justify-center gap-2"
+                  className="w-full border-pearl/10 text-pearl hover:bg-champagne hover:text-midnight hover:border-champagne transition-all duration-700 rounded-2xl uppercase tracking-[0.3em] text-[10px] font-bold py-6 flex items-center justify-center gap-3 shadow-xl shadow-midnight/20"
                 >
-                  Inquire Now <ArrowRight size={14} />
+                  Inquire Now <ArrowRight size={16} />
                 </Button>
               </div>
             </motion.div>
